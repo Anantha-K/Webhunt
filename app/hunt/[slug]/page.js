@@ -31,7 +31,7 @@ const page = () => {
 
             </nav>
 
-            <CiCircleQuestion className=' self-end text-5xl fixed translate-y-16 cursor-pointer hover:text-green-500 -translate-x-8' />
+            <CiCircleQuestion className=' self-end text-5xl fixed translate-y-16 cursor-pointer hover:text-green-500 -translate-x-12' />
     </div>
   )
 }
