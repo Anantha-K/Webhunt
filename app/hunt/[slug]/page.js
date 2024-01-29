@@ -12,7 +12,7 @@ const page = () => {
             <div className='h-[90%]'>
 
             </div>
-            <nav className='border-2 border-gray-800 -translate-y-5 mb-5 text-3xl font-light w-[70%] self-center rounded-3xl items-center flex justify-evenly h-[10%]'>
+            <nav className='border-2 border-gray-800 md:-translate-y-5 mb-5 text-3xl font-light w-[90%] md:w-[70%] self-center rounded-3xl items-center flex justify-evenly h-[10%]'>
             <Link href='/hunt/hi'>
             <RiHomeLine className={`cursor-pointer ${active=== 'home' ? 'text-green-400' : 'text-white'  }`} onClick={()=>setactive('home')} />
             </Link>
