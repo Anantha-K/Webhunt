@@ -3,9 +3,23 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
-    name: { type: String },
-    email: { type: String, unique: true },
-    password: { type: String },
+    name: {
+      type: String,
+      minlength: 3,
+      maxlength: 20,
+      required: [true, "Kindly enter the name"],
+    },
+    email: {
+      type: String,
+      unique: true,
+      required: [true, "Kindly enter the Email"],
+    },
+    password: {
+      type: String,
+      minlength: 3,
+      maxlength: 20,
+      required: [true, "Kindly enter the password"],
+    },
   },
   { timestamps: true }
 );
