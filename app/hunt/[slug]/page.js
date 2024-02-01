@@ -12,7 +12,7 @@ const page = () => {
   return (
     <div className='w-full bg-black h-screen flex flex-col'>
             <div className='h-[90%] flex flex-col items-center justify-center'>
-                <p>What is Your Name?</p>
+                <p>Clue1</p>
                 <input></input>
             </div>
             <nav className='border-2 border-gray-800 md:-translate-y-5 mb-5 text-3xl font-light w-[90%] md:w-[70%] self-center rounded-3xl items-center flex justify-evenly h-[10%]'>
