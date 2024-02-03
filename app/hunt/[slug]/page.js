@@ -11,10 +11,21 @@ const page = () => {
 
   return (
     <div className='w-full bg-black text-white h-screen flex flex-col'>
-            <div className='h-[90%] flex flex-col items-center justify-center'>
-                <div className=' h-[70%] rounded-xl flex border-0 border-l-[5px] border-green-700 w-[75%]'>
-                    <h1 className=' ml-5 mt-5 text-3xl'>1. What is Clue 1?</h1>
+            <div className='h-[90%] flex flex-col items-center '>
+                <div className=' h-[30%] rounded-3xl bg-gray-300 text-black mt-24 flex items-center justify-center w-[75%]'>
+                  <h1 className='text-4xl'>1. What is Clue one??</h1>
                 </div>
+                <div className="form-control">
+  <input
+    type="text"
+    required=""
+    placeholder="Type something intelligent"
+    className="input input-alt"
+  />
+  <span className="input-border input-border-alt"></span>
+</div>                <div id='clue' className='mt-20'>
+  <button >Submit</button>
+</div>
             </div>
 
 
