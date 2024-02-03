@@ -10,11 +10,16 @@ const page = () => {
     const [active, setactive] = useState('home')
 
   return (
-    <div className='w-full bg-black h-screen flex flex-col'>
+    <div className='w-full bg-black text-white h-screen flex flex-col'>
             <div className='h-[90%] flex flex-col items-center justify-center'>
-                <p>Clue1</p>
-                <input></input>
+                <div className=' h-[70%] rounded-xl flex border-0 border-l-[5px] border-green-700 w-[75%]'>
+                    <h1 className=' ml-5 mt-5 text-3xl'>1. What is Clue 1?</h1>
+                </div>
             </div>
+
+
+
+
             <nav className='border-2 border-gray-800 md:-translate-y-5 mb-5 text-3xl font-light w-[90%] md:w-[70%] self-center rounded-3xl items-center flex justify-evenly h-[10%]'>
             <Link href='/hunt/hi'>
             <RiHomeLine className={`cursor-pointer ${active=== 'home' ? 'text-green-400' : 'text-white'  }`} onClick={()=>setactive('home')} />
