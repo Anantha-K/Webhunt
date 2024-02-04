@@ -6,11 +6,13 @@ import { RiHomeLine } from "react-icons/ri";
 import Link from "next/link";
 import { CiCircleQuestion } from "react-icons/ci";
 import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const page = () => {
   const [active, setactive] = useState("home");
   const [answer, setAnswer] = useState("");
   const [hints, setHints] = useState(3);
+  const [flipped, setisFlipped] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -19,35 +21,45 @@ const page = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(answer===''){
+      toast.error("Enter answer!");
+    }
     setAnswer("");
   };
 
   const handleHint = () => {
+    setisFlipped(true);
     toast('- 50 Points', {
       icon: '❗️',
 
     });
-    if (hints > 0) {
-      setHints(hints - 1);
-      if (hints === 3) {
-        alert("Hint 1: Clue one is related to the number 1.");
-      } else if (hints === 2) {
-        alert("Hint 2: Clue one is a common programming concept.");
-      } else {
-        alert("Hint 3: Clue one is a JavaScript primitive type.");
-      }
-    } else {
-      toast.error("Sorry, you have no more hints left.");
-    }
+    // if (hints > 0) {
+    //   setHints(hints - 1);
+    //   if (hints === 3) {
+    //     alert("Hint 1: Clue one is related to the number 1.");
+    //   } else if (hints === 2) {
+    //     alert("Hint 2: Clue one is a common programming concept.");
+    //   } else {
+    //     alert("Hint 3: Clue one is a JavaScript primitive type.");
+    //   }
+    // } else {
+    //   toast.error("Sorry, you have no more hints left.");
+    // }
   };
 
   return (
     <div className="w-full bg-black text-white h-screen flex flex-col">
       <Toaster />
       <div className="h-[90%] flex flex-col items-center ">
-        <div className=" h-[30%] rounded-3xl bg-gray-200 text-black mt-24 flex items-center justify-center w-[75%] transform">
-          <h1 className="text-4xl">1. What is Clue one??</h1>
-        </div>
+      <motion.div
+      className="h-[30%] rounded-3xl bg-gray-200 text-black mt-24 flex items-center justify-center w-[75%]"
+      whileHover={{ scaleX: -1 }}
+      transition={{ duration: 1 }}
+    >
+          <h1 className={ `${flipped?'hidden':'text-4xl'}`}>1. What is Clue one??</h1>
+          <h1 className={ `${flipped?'text-4xl':'hidden'}`}>HINT 1</h1>
+
+        </motion.div>
         <div className="form-control">
           <input
             name="Answer"
