@@ -14,6 +14,7 @@ const page = () => {
   const [hints, setHints] = useState(3);
   const [flipped, setisFlipped] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [btnActive, setbtnActive] = useState(true);
   const handleChange = (e) => {
     const value = e.target.value;
     setAnswer(value);
@@ -28,6 +29,7 @@ const page = () => {
   };
 
   const handleHint = () => {
+    if(!showHint){
     if (hints > 0) {
       setHints(hints - 1);
       setShowHint(!showHint); 
@@ -38,7 +40,10 @@ const page = () => {
         setShowHint(false);
       }, 10000);
     } else {
+      setbtnActive(false);
       toast.error("Sorry, you have no more hints left.");
+    }}else{
+      toast.error("Wait");
     }
   };
 
@@ -48,7 +53,7 @@ const page = () => {
       <div className="h-[90%] flex flex-col items-center ">
       <motion.div
   className="h-[30%] rounded-3xl bg-gray-200 text-black mt-24 flex items-center justify-center w-[75%]"
-  animate={showHint ? "flip" : "unflip"}
+  animate={showHint ? "flip" : ""}
   initial="unflip"
   variants={{
     unflip: { scaleX: 1 },
@@ -76,7 +81,7 @@ const page = () => {
         <div id="clue" className="mt-20 flex space-x-5">
           <button
             id="hint"
-            className="hover:cursor-pointer"
+            className={`${btnActive?'hover:cursor-pointer':'hover:cursor-not-allowed'} `}
             onClick={handleHint}
           >
             Hint
