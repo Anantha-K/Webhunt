@@ -8,23 +8,40 @@ import { CiCircleQuestion } from "react-icons/ci";
 
 const page = () => {
     const [active, setactive] = useState('home')
-
+    const[answer,setAnswer]=useState('');
+  const handleChange=(e)=>{
+    const value=e.target.value;
+    setAnswer(value);
+  }
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    setAnswer('');
+    
+  }
   return (
     <div className='w-full bg-black text-white h-screen flex flex-col'>
             <div className='h-[90%] flex flex-col items-center '>
-                <div className=' h-[30%] rounded-3xl bg-gray-300 text-black mt-24 flex items-center justify-center w-[75%]'>
+                <div className=' h-[30%] rounded-3xl bg-gray-200 text-black mt-24 flex items-center justify-center w-[75%]'>
                   <h1 className='text-4xl'>1. What is Clue one??</h1>
                 </div>
                 <div className="form-control">
   <input
-    type="text"
+  name='Answer'
+  value={answer}
+  onChange={handleChange}
+  type="text"
     required=""
-    placeholder="Type something intelligent"
-    className="input input-alt"
+    placeholder="Enter Your Answer..."
+    className="input input-alt mt-16"
   />
   <span className="input-border input-border-alt"></span>
 </div>                <div id='clue' className='mt-20'>
-  <button >Submit</button>
+  <button onClick={handleSubmit} >Submit</button>
+</div>
+
+
+<div className='h-24 flex items-center w-[70%] text-white'>
+
 </div>
             </div>
 
@@ -47,7 +64,6 @@ const page = () => {
 
             </nav>
 
-            <CiCircleQuestion className=' self-end text-5xl fixed translate-y-16 cursor-pointer hover:text-green-500 -translate-x-12' />
     </div>
   )
 }
