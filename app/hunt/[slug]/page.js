@@ -7,17 +7,35 @@ import Link from 'next/link';
 import { CiCircleQuestion } from "react-icons/ci";
 
 const page = () => {
-    const [active, setactive] = useState('home')
-    const[answer,setAnswer]=useState('');
+  const [active, setactive] = useState('home')
+  const[answer,setAnswer]=useState('');
+  const [hints, setHints] = useState(3);
+
   const handleChange=(e)=>{
     const value=e.target.value;
     setAnswer(value);
   }
+
   const handleSubmit=(e)=>{
     e.preventDefault();
     setAnswer('');
-    
   }
+
+  const handleHint=()=>{
+    if (hints > 0) {
+      setHints(hints - 1);
+      if (hints === 3) {
+        alert('Hint 1: Clue one is related to the number 1.');
+      } else if (hints === 2) {
+        alert('Hint 2: Clue one is a common programming concept.');
+      } else {
+        alert('Hint 3: Clue one is a JavaScript primitive type.');
+      }
+    } else {
+      alert('Sorry, you have no more hints left.');
+    }
+  }
+
   return (
     <div className='w-full bg-black text-white h-screen flex flex-col'>
             <div className='h-[90%] flex flex-col items-center '>
@@ -35,10 +53,11 @@ const page = () => {
     className="input input-alt mt-16"
   />
   <span className="input-border input-border-alt"></span>
-</div>                <div id='clue' className='mt-20'>
-  <button onClick={handleSubmit} >Submit</button>
+</div>                <div id='clue' className='mt-20 flex space-x-5'>
+  <button id='hint' className='hover:cursor-pointer' onClick={handleHint} >Hint</button>
+  <button onClick={handleSubmit} className='hover:cursor-pointer' >Submit</button>
 </div>
-
+<div className='text-black px-5 mt-5 translate-y-16 bg-white py-1 rounded-3xl'>Hints remaining: <span className='text-red-500 font-bold'>{hints}</span></div>
 
 <div className='h-24 flex items-center w-[70%] text-white'>
 
