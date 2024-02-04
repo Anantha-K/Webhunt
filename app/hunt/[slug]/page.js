@@ -1,10 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { MdOutlineLeaderboard } from "react-icons/md";
-import { VscAccount } from "react-icons/vsc";
+import { IoIosLogOut } from "react-icons/io";
 import { RiHomeLine } from "react-icons/ri";
 import Link from "next/link";
-import { CiCircleQuestion } from "react-icons/ci";
 import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
 
@@ -19,7 +18,10 @@ const page = () => {
     const value = e.target.value;
     setAnswer(value);
   };
-
+  const logOut=()=>{
+    toast.success("Logged out")
+    localStorage.clear();
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     if(answer===''){
@@ -52,7 +54,7 @@ const page = () => {
       <Toaster />
       <div className="h-[90%] flex flex-col items-center ">
       <motion.div
-  className="h-[30%] rounded-3xl bg-gray-200 text-black mt-24 flex items-center justify-center w-[75%]"
+  className="h-[30%] rounded-3xl bg-gray-200 text-2xl md:text-4xl text-black mt-24 flex items-center justify-center w-[75%]"
   animate={showHint ? "flip" : ""}
   initial="unflip"
   variants={{
@@ -61,10 +63,10 @@ const page = () => {
   }}
   transition={{ duration: 1 }}
 >
-  <h1 className={`${showHint ? 'hidden' : 'text-4xl'}`}>
+  <h1 className={`${showHint ? 'hidden' : 't'}`}>
     1. What is Clue one??
   </h1>
-  <h1 className={`${showHint ? 'text-4xl' : 'hidden'} `}>HINT 1</h1>
+  <h1 className={`${showHint ? '' : 'hidden'} `}>HINT 1</h1>
 </motion.div>
         <div className="form-control">
           <input
@@ -115,12 +117,11 @@ const page = () => {
           />
         </Link>
 
-        <Link href="/hunt/hi">
-          <VscAccount
-            className={`cursor-pointer ${
+        <Link href="/">
+        <IoIosLogOut             className={`cursor-pointer ${
               active === "Account" ? "text-green-400" : "text-white"
             }`}
-            onClick={() => setactive("Account")}
+            onClick={() => logOut()}
           />
         </Link>
       </nav>
