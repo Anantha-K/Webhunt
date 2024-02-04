@@ -13,7 +13,7 @@ const page = () => {
   const [answer, setAnswer] = useState("");
   const [hints, setHints] = useState(3);
   const [flipped, setisFlipped] = useState(false);
-
+  const [showHint, setShowHint] = useState(false);
   const handleChange = (e) => {
     const value = e.target.value;
     setAnswer(value);
@@ -28,23 +28,18 @@ const page = () => {
   };
 
   const handleHint = () => {
-    setisFlipped(true);
-    toast('- 50 Points', {
-      icon: '❗️',
-
-    });
-    // if (hints > 0) {
-    //   setHints(hints - 1);
-    //   if (hints === 3) {
-    //     alert("Hint 1: Clue one is related to the number 1.");
-    //   } else if (hints === 2) {
-    //     alert("Hint 2: Clue one is a common programming concept.");
-    //   } else {
-    //     alert("Hint 3: Clue one is a JavaScript primitive type.");
-    //   }
-    // } else {
-    //   toast.error("Sorry, you have no more hints left.");
-    // }
+    if (hints > 0) {
+      setHints(hints - 1);
+      setShowHint(!showHint); 
+      toast('- 50 Points', {
+        icon: '❗️',
+      });
+      setTimeout(() => {
+        setShowHint(false);
+      }, 10000);
+    } else {
+      toast.error("Sorry, you have no more hints left.");
+    }
   };
 
   return (
@@ -52,14 +47,20 @@ const page = () => {
       <Toaster />
       <div className="h-[90%] flex flex-col items-center ">
       <motion.div
-      className="h-[30%] rounded-3xl bg-gray-200 text-black mt-24 flex items-center justify-center w-[75%]"
-      whileHover={{ scaleX: -1 }}
-      transition={{ duration: 1 }}
-    >
-          <h1 className={ `${flipped?'hidden':'text-4xl'}`}>1. What is Clue one??</h1>
-          <h1 className={ `${flipped?'text-4xl':'hidden'}`}>HINT 1</h1>
-
-        </motion.div>
+  className="h-[30%] rounded-3xl bg-gray-200 text-black mt-24 flex items-center justify-center w-[75%]"
+  animate={showHint ? "flip" : "unflip"}
+  initial="unflip"
+  variants={{
+    unflip: { scaleX: 1 },
+    flip: { scaleX: -1 },
+  }}
+  transition={{ duration: 1 }}
+>
+  <h1 className={`${showHint ? 'hidden' : 'text-4xl'}`}>
+    1. What is Clue one??
+  </h1>
+  <h1 className={`${showHint ? 'text-4xl' : 'hidden'} `}>HINT 1</h1>
+</motion.div>
         <div className="form-control">
           <input
             name="Answer"
