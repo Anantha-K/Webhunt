@@ -109,7 +109,7 @@ body {
 
 .input-border-alt {
   height: 3px;
-  background: linear-gradient(90deg, #6eff6e 0%, #59ffbf 50%, #47c9ff 100%);
+  background: linear-gradient(90deg, #6eff6e 0%, #59ffbf 50%, #1aea60 100%);
   transition: transform 0.4s cubic-bezier(0.42, 0, 0.58, 1);
 }
 
