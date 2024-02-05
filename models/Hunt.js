@@ -2,11 +2,10 @@ import mongoose from "mongoose";
 
 const HuntSchema = new mongoose.Schema(
   {
-    name:{ 
-            type: mongoose.Types.ObjectId,
+    name: { 
+            type: String,
             ref: 'User',
-            required: [true, 'Please provide user']
-        },
+          },
     score:{
             type: Number,
             default:0

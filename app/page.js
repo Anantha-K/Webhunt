@@ -10,7 +10,7 @@ export default function Home() {
   <div className='flex items-center flex-col space-y-10'>
 
   <label
-            for="UserEmail"
+            htmlFor="UserEmail"
             className="relative block w-72 overflow-hidden border-b border-gray-200 bg-transparent pt-3 focus-within:border-green-500"
           >
             <input
@@ -24,7 +24,7 @@ export default function Home() {
             </span>
           </label>
           <label
-            for="UserEmail"
+            htmlFor="UserEmail"
             className="relative block w-72 overflow-hidden border-b border-gray-200 bg-transparent pt-3 focus-within:border-green-500"
           >
             <input
@@ -37,11 +37,7 @@ export default function Home() {
               Password
             </span>
           </label>
-          <a href="#_" class="relative inline-flex items-center justify-center p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out rounded-full shadow-xl group hover:ring-1 hover:ring-green-300">
-<span class="absolute inset-0 w-full h-full bg-gradient-to-br from-green-900 via-green-700 to-green-200"></span>
-<span class="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-green-500 rounded-full opacity-30 group-hover:rotate-90 ease"></span>
-<span class="relative text-white">Log in</span>
-</a>
+       
           </div>
 
 </div>
