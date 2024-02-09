@@ -27,7 +27,7 @@ const page = () => {
     setEmail('');
     setPassword('');
     console.log(data)
-    let res = await fetch('http://localhost:3000/api/register',
+    let res = await fetch('http://localhost:3000/api/auth/register',
     {
       method:'POST',
       headers:{
