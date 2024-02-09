@@ -1,46 +1,111 @@
-import Image from 'next/image'
-import Type from './Type'
+'use client'
+import React, { useState } from 'react';
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//import { faGithub, faInstagram, faYoutube, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
+function page() {
+  const [activePanel, setActivePanel] = useState('login');
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('')
+  const handleChange=(e)=>{
+    const {name,value}=e.target;
+    if(name==='name'){
+      setName(value);
+    }
+    else if(name==='email'){
+      setEmail(value)
+    }
+    else if(name==='password'){
+      setPassword(value);
+    }
+  }
+  const handleRegisterClick = () => {
+    setActivePanel('register');
+  };
+  
+  const handleLoginClick = () => {
+    setActivePanel('login');
+  };
+  
+  const handleSubmit = async (e)=>{
+    const data = {name,email,password}
+    e.preventDefault();
+    setName('');
+    setEmail('')
+    setPassword('')
+    console.log(data);
+    const res = await fetch('http://localhost:3000/api/register',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+      },
+      body:JSON.stringify(data)
+    })
+    let response = await res.json();
+    console.log(response);
 
-export default function Home() {
+  }
+ 
+
   return (
-<>
-<div className='bg-black w-full min-h-screen items-center align-middle justify-center flex flex-col text-white'>
-  <h1 className='text-6xl mb-28'>SpectroSpect</h1>
-  <div className='flex items-center flex-col space-y-10'>
+    <div className={`container ${activePanel === 'register' ? 'active' : ''}`}>
+      <div className="form-container sign-up text-black">
+        <form>
+          <h1>Sign-up</h1>
+          <input type="text" placeholder="Name" value={name} name="name" onChange={handleChange}/>
+          <input type="email" placeholder="Email" value={email} name="email" onChange={handleChange}/>
+          <input type="password" placeholder="Password" value={password} name="password" onChange={handleChange}/>
+          <button onClick={handleSubmit}>Sign Up</button>
+          <br />
+          <h4>Follow SB Social-media handles</h4>
+          {/* <div className="social-icons">
+            <a href="#" className="icon"><FontAwesomeIcon icon={faGithub} /></a>
+            <a href="#" className="icon"><FontAwesomeIcon icon={faInstagram} /></a>
+            <a href="#" className="icon"><FontAwesomeIcon icon={faYoutube} /></a>
+            <a href="#" className="icon"><FontAwesomeIcon icon={faLinkedinIn} /></a>
 
-  <label
-            htmlFor="UserEmail"
-            className="relative block w-72 overflow-hidden border-b border-gray-200 bg-transparent pt-3 focus-within:border-green-500"
-          >
-            <input
-              type="text"
-              placeholder="Name"
-              className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-            />
+          </div> */}
+        </form>
+      </div>
+      <div className="form-container sign-in text-black">
+        <form>
+          <h1>Log In</h1>
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <a href="#">Forget your password?</a>
+          <button>Log In</button>
+          <br />
+          <h4>Follow SB Social-media handles</h4>
+          {/* <div className="social-icons">
+            <a href="#" className="icon"><FontAwesomeIcon icon={faGithub} /></a>
+            <a href="#" className="icon"><FontAwesomeIcon icon={faInstagram} /></a>
+            <a href="#" className="icon"><FontAwesomeIcon icon={faYoutube} /></a>
+            <a href="#" className="icon"><FontAwesomeIcon icon={faLinkedinIn} /></a>
 
-            <span className="absolute start-0 top-2 -translate-y-1/2 text-xs text-green-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-              Name
-            </span>
-          </label>
-          <label
-            htmlFor="UserEmail"
-            className="relative block w-72 overflow-hidden border-b border-gray-200 bg-transparent pt-3 focus-within:border-green-500"
-          >
-            <input
-              type="password"
-              placeholder="Name"
-              className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-            />
-
-            <span className="absolute start-0 top-2 -translate-y-1/2 text-xs text-green-500 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-              Password
-            </span>
-          </label>
-       
+          </div> */}
+        </form>
+      </div>
+      <div className="toggle-container">
+        <div className="toggle">
+          <div className="toggle-panel toggle-left">
+<a href="https://ieee-fisat-spectrospect.vercel.app/">
+  {/* <img src={process.env.PUBLIC_URL + '/ezgif.gif'} alt="" className="imgg" /> */}
+</a>
+            <p>Enter your personal details to use all of the site features</p>
+            <button className="hidden" onClick={handleLoginClick}>Log In</button>
+            <button>Clues</button>
           </div>
-
-</div>
-</>   
-  )
+          <div className="toggle-panel toggle-right">
+            <a href="https://ieee-fisat-spectrospect.vercel.app/"><img src="ezgif.gif" alt="" className="imgg" /></a>
+            <p>Register with your personal details to use all of the site features</p>
+            <button className="hiddenn" onClick={handleRegisterClick}>Sign Up</button>
+            <button>Clues</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
+
+export default page;

@@ -116,3 +116,4 @@ body {
 .input-alt:focus + .input-border-alt {
   transform: scaleX(100%);
 }
+
