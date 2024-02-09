@@ -1,25 +1,13 @@
 'use client'
 import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faGithub, faInstagram, faYoutube, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import './Login.css'
 
 function page() {
   const [activePanel, setActivePanel] = useState('login');
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('')
-  const handleChange=(e)=>{
-    const {name,value}=e.target;
-    if(name==='name'){
-      setName(value);
-    }
-    else if(name==='email'){
-      setEmail(value)
-    }
-    else if(name==='password'){
-      setPassword(value);
-    }
-  }
+
   const handleRegisterClick = () => {
     setActivePanel('register');
   };
@@ -28,28 +16,92 @@ function page() {
     setActivePanel('login');
   };
   
-  const handleSubmit = async (e)=>{
-    const data = {name,email,password}
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+  
+    if (name === 'name') {
+      setName(value);
+    } else if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'password') {
+      setPassword(value);
+    }
+  };
+  const handleChangeLogin = (e) => {
+    const { name , value } = e.target;
+  
+    if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'password') {
+      setPassword(value);
+    }
+  };
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('')
+   const handleSubmit= async (e)=>{
+    // if(name || email || password === ''){
+    //   toast.error("Fill the form");
+    // }
     e.preventDefault();
-    setName('');
-    setEmail('')
-    setPassword('')
-    console.log(data);
-    const res = await fetch('http://localhost:3000/api/register',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-      },
-      body:JSON.stringify(data)
-    })
-    let response = await res.json();
-    console.log(response);
+    if(activePanel==='login'){
+      const data={email,password};
+      setEmail('')
+      setPassword('')
 
-  }
+      let res= await fetch ('http://localhost:3000/api/auth/login',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+        },
+        body:JSON.stringify(data),
+            })
+        
+            console.log(res);
+      let response =await res.json();
+      console.log(response.message)
+    }else{
+
+      
+      const data={name,email,password};
+      setName('');
+      setEmail('');
+      setPassword('');
+      console.log(data)
+      let res = await fetch('http://localhost:3000/api/auth/register',
+      {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+        },
+        body:JSON.stringify(data)
+      }
+      
+      )
+      
+      let response = await res.json();
+      console.log(response);
+      if(response.message==="User created"){
+        toast.success("User Created!");
+        setTimeout(()=>{
+          toast.loading("Redirecting...");
+          
+        },1000);
+        setTimeout(()=>{
+          window.location.href='/';
+        },2000)
+        
+        
+      }
+      
+    }
+
+   }
  
 
   return (
     <div className={`container ${activePanel === 'register' ? 'active' : ''}`}>
+      <Toaster/>
       <div className="form-container sign-up text-black">
         <form>
           <h1>Sign-up</h1>
@@ -71,10 +123,10 @@ function page() {
       <div className="form-container sign-in text-black">
         <form>
           <h1>Log In</h1>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
+          <input type="email" placeholder="Email" value={email} name='email' onChange={handleChangeLogin} />
+          <input type="password" placeholder="Password" value={password} name="password" onChange={handleChangeLogin} />
           <a href="#">Forget your password?</a>
-          <button>Log In</button>
+          <button onClick={handleSubmit}>Log In</button>
           <br />
           <h4>Follow SB Social-media handles</h4>
           {/* <div className="social-icons">

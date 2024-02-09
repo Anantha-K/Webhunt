@@ -2,6 +2,7 @@
 import Link from "next/link";
 
 import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 
 const page = () => {
@@ -40,6 +41,18 @@ const page = () => {
 
     let response = await res.json();
     console.log(response);
+    if(response.message==="User created"){
+      toast.success("User Created!");
+      setTimeout(()=>{
+        toast.loading("Redirecting...");
+
+      },1000);
+      setTimeout(()=>{
+        window.location.href='/';
+      },2000)
+
+      
+    }
    
 
    }
@@ -48,6 +61,7 @@ const page = () => {
   return (
     <>
       <div className="flex bg-white min-h-full flex-1 flex-col justify-center px-6 py-24 md:py-12 lg:px-8">
+        <Toaster/>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-10 w-auto"
