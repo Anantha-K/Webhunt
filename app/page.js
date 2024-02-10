@@ -84,7 +84,9 @@ function page() {
       if(response.message==="User created"){
         toast.success("User Created!");
         setTimeout(()=>{
-          toast.loading("Redirecting...");
+          toast.loading('Redirecting...', {
+            position: "top-left"
+          })
           
         },1000);
         setTimeout(()=>{
@@ -93,6 +95,16 @@ function page() {
         
         
       }
+      else if(response.message === "Internal Server Error"){
+        toast.error("Error creating user!");
+      }
+      else if(response.message === "Email already exists"){
+        toast('Good Job!', {
+          icon: '🤨',
+        });
+
+      }
+      
       
     }
 
