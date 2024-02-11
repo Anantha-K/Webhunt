@@ -5,7 +5,9 @@ var jwt = require('jsonwebtoken')
 
 connect();
 export const POST = async (request)=>{
-    const {email,password}=await request.json();
+    // const {email,password}=await request.json();
+    const email="Hello@hi.com";
+    const password="123456";
 
     try{
         const Users=await User.findOne({email});
@@ -20,7 +22,7 @@ export const POST = async (request)=>{
                 
                 
             }else{
-              return new NextResponse({message:"Incorrect password"},{status:400})
+              return  new NextResponse({message:"Incorrect password"},{status:400})
 
             }
         }else{

@@ -39,28 +39,48 @@ function page() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
+  const handleSubmitLogin=async (e)=>{
+    e.preventDefault();
+    const data={email,password};
+    setEmail('')
+    setPassword('')
+
+    let res= await fetch ('http://localhost:3000/api/auth/login',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+      },
+      body:JSON.stringify(data),
+          })
+      
+          console.log(res);
+    let response =await res.json();
+
+    if(User){
+      toast.success("Log in Successful!");
+      setTimeout(()=>{
+        toast.loading('Redirecting...', {
+          position: "top-left"
+        })
+        
+      },1000);
+      setTimeout(()=>{
+        window.location.href='/hunt/game';
+      },2000)
+      
+      
+    }  }
+
+
+
+
+
+  
    const handleSubmit= async (e)=>{
     // if(name || email || password === ''){
     //   toast.error("Fill the form");
     // }
-    e.preventDefault();
-    if(activePanel==='login'){
-      const data={email,password};
-      setEmail('')
-      setPassword('')
-
-      let res= await fetch ('http://localhost:3000/api/auth/login',{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json',
-        },
-        body:JSON.stringify(data),
-            })
-        
-            console.log(res);
-      let response =await res.json();
-      console.log(response.message)
-    }else{
+  e.preventDefault();
 
       
       const data={name,email,password};
@@ -103,11 +123,11 @@ function page() {
           icon: '🤨',
         });
 
+      
+      
+      
+    
       }
-      
-      
-    }
-
    }
  
 
@@ -138,7 +158,7 @@ function page() {
           <input type="email" placeholder="Email" value={email} name='email' onChange={handleChangeLogin} />
           <input type="password" placeholder="Password" value={password} name="password" onChange={handleChangeLogin} />
           <a href="#">Forget your password?</a>
-          <button onClick={handleSubmit}>Log In</button>
+          <button onClick={handleSubmitLogin}>Log In</button>
           <br />
           <h4>Follow SB Social-media handles</h4>
           {/* <div className="social-icons">
