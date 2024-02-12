@@ -27,6 +27,11 @@ const page = () => {
     if(answer===''){
       toast.error("Enter answer!");
     }
+    else if(answer!="Hello"){
+      toast.error("Wrong Guess!");
+
+      
+    }
     setAnswer("");
   };
 
