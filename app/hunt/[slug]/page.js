@@ -19,8 +19,14 @@ const page = () => {
     setAnswer(value);
   };
   const logOut=()=>{
-    toast.success("Logged out")
-    localStorage.clear();
+    localStorage.removeItem("token");
+    toast.loading("Logging Out")
+    setTimeout(() => {
+      toast.success("Logged out")
+      window.location.href='/';
+      
+    }, 500);
+
   }
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -70,11 +70,11 @@ function page() {
           position: "top-left"
         })
         
-      },1000);
+      },500);
 
       setTimeout(()=>{
           window.location.href='/hunt/game';
-        },2000);
+        },1000);
 
       }
 
