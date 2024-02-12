@@ -55,21 +55,44 @@ function page() {
       
           console.log(res);
     let response =await res.json();
+    console.log(response);
 
-    if(User){
-      toast.success("Log in Successful!");
+    if(response.message === "No user"){
+      toast.error("User Does not Exist!");
+    }
+    else if(response.message === "Incorrect password"){
+      toast.error("Incorrect Password");
+    }
+    else if(response.message === "Login Successful"){
+      toast.success("Logged in")
       setTimeout(()=>{
         toast.loading('Redirecting...', {
           position: "top-left"
         })
         
       },1000);
+
       setTimeout(()=>{
-        window.location.href='/hunt/game';
-      },2000)
+          window.location.href='/hunt/game';
+        },2000);
+
+      }
+
+    // if(User){
+    //   toast.success("Log in Successful!");
+    //   setTimeout(()=>{
+    //     toast.loading('Redirecting...', {
+    //       position: "top-left"
+    //     })
+        
+    //   },1000);
+    //   setTimeout(()=>{
+    //     window.location.href='/hunt/game';
+    //   },2000)
       
       
-    }  }
+    // }  
+        }
 
 
 
