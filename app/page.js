@@ -42,9 +42,7 @@ function page() {
   const handleSubmitLogin=async (e)=>{
     e.preventDefault();
     const data={email,password};
-    setEmail('')
-    setPassword('')
-
+  
     let res= await fetch ('http://localhost:3000/api/auth/login',{
       method:'POST',
       headers:{
@@ -77,6 +75,9 @@ function page() {
         },1000);
 
       }
+      setEmail('')
+      setPassword('')
+    
 
     // if(User){
     //   toast.success("Log in Successful!");
