@@ -18,19 +18,19 @@ const page = () => {
   const [showHint, setShowHint] = useState(false);
   const [btnActive, setbtnActive] = useState(true);
   const [user, setuser] = useState('');
-  const [level, setlevel] = useState(1);
+  const [level, setlevel] = useState(0);
+  const [score, setscore] = useState(0);
   useEffect(() => {
     const tkn = localStorage.getItem('token');
     setuser(tkn)
 
-    fetchData();
     
   }, [])
   
   const fetchData=async()=>{
-    const email='ieee@iee.com'
-    const data ={email}
-    let res= await fetch ('http://localhost:3000/api/auth/updateHunt',{
+    const email="hel@hi.com";
+    const data ={email,score,level};
+    let resp= await fetch ('http://localhost:3000/api/auth/updateHunt',{
       method:'POST',
       headers:{
         'Content-Type':'application/json',
@@ -38,8 +38,8 @@ const page = () => {
       body:JSON.stringify(data),
           })
       
-          console.log(res);
-    let response =await res.json();
+          console.log(resp);
+    let response =await resp.json();
     console.log(response);
   }
   
@@ -75,8 +75,11 @@ const page = () => {
         setHints(3);
         if(level<10){
           setlevel(level+1);
+          fetchData();
 
         }
+
+
 
 
     }

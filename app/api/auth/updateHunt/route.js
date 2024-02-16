@@ -5,18 +5,19 @@ import { NextRequest, NextResponse } from "next/server";
 connect();
 
 export const POST = async (request)=>{
-    const {name,score,level,currentLevelClues}={
-        name:"Anantha",
-    score:100,
-    level:1,
-   currentLevelClues:0,
-};   
- try{
-    const newHunt=  new Hunt({name,score,level,currentLevelClues});
-    await newHunt.save();
-    return NextResponse.json({ message: "User created" }, { status: 201 });
-    }catch(error){
-        return NextResponse.json({ message: "Error" }, { status: 400 });
+    const { email, score, level } = await request.json();
+try{
+       
+        
+    const userLvl =await Hunt.findOne({email});
+    userLvl.level=level;
+    userLvl.score=score;
 
-    }
-} 
+    await userLvl.save();
+
+    return NextResponse.json({ message: "Success" }, { status: 201 });
+}
+catch(error){
+    return NextResponse.json({message:"Error"},{status:400})
+}
+}

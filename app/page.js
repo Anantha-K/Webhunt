@@ -74,6 +74,10 @@ function page() {
 
       },500);
 
+      setTimeout(()=>{
+          window.location.href='/hunt/game';
+        },1000);
+
       }
       setEmail('')
       setPassword('')
