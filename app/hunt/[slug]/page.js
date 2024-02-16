@@ -23,14 +23,33 @@ const page = () => {
   useEffect(() => {
     const tkn = localStorage.getItem('token');
     setuser(tkn)
+    fetchData();
+    
 
     
   }, [])
   
-  const fetchData=async()=>{
+  const fetchData = async()=>{
+    const email="hel@h1.com";
+    let url = `http://localhost:3000/api/auth/fetchDetails?email=${email}`;
+
+    let resp = await fetch(url);
+    
+    let response = await resp.json();
+    console.log(response);
+    setscore(response.score);
+    setlevel(response.level);
+    console.log(score);
+    console.log(level);
+ 
+  }
+
+  
+
+  const updateData=async()=>{
     const email="hel@hi.com";
     const data ={email,score,level};
-    let resp= await fetch ('http://localhost:3000/api/auth/updateHunt',{
+    let res= await fetch ('http://localhost:3000/api/auth/updateHunt',{
       method:'POST',
       headers:{
         'Content-Type':'application/json',
@@ -38,9 +57,10 @@ const page = () => {
       body:JSON.stringify(data),
           })
       
-          console.log(resp);
-    let response =await resp.json();
+          console.log(res);
+    let response =await res.json();
     console.log(response);
+
   }
   
   const handleChange = (e) => {
@@ -75,7 +95,7 @@ const page = () => {
         setHints(3);
         if(level<10){
           setlevel(level+1);
-          fetchData();
+          updateData();
 
         }
 
