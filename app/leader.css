@@ -186,7 +186,7 @@ a{
     width: 180px;
     height: 100%;
     border-radius: 28px;
-    background-image: url(boy1.jpeg);
+    /* background-image: url(boy1.jpeg); */
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -407,7 +407,7 @@ padding-left: 520px;
     border-radius: 13px;
 }
 #m5,#m4,#m6,#m7,#m8,#m9,#m10{
-    background: url(boy2.jpeg);
+    /* background: url(boy2.jpeg); */
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
