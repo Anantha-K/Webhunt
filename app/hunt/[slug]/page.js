@@ -16,7 +16,8 @@ const page = () => {
   const [flipped, setisFlipped] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [btnActive, setbtnActive] = useState(true);
-  const [user, setuser] = useState('')
+  const [user, setuser] = useState('');
+  const [level, setlevel] = useState(1);
   useEffect(() => {
     const tkn = localStorage.getItem('token');
     setuser(tkn)
@@ -47,7 +48,20 @@ const page = () => {
 
       
     }
-    setAnswer("");
+    else if(answer==='Hello'){
+
+        toast.success("Correct Answer")
+        setAnswer("");
+        setShowHint(false);
+        setHints(3);
+        if(level<10){
+          setlevel(level+1);
+
+        }
+
+
+    }
+
 
     
   };
