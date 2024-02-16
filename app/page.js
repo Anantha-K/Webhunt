@@ -1,4 +1,5 @@
 'use client'
+import { redirect } from 'next/navigation';
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -63,6 +64,7 @@ function page() {
     }
     else if(response.message === "Login Successful"){
       toast.success("Logged in")
+      localStorage.setItem('token',response.token);
       setTimeout(()=>{
         toast.loading('Redirecting...', {
           position: "top-left"

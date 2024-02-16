@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import { RiHomeLine } from "react-icons/ri";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
+
+ 
 
 const page = () => {
   const [active, setactive] = useState("home");
@@ -14,6 +16,13 @@ const page = () => {
   const [flipped, setisFlipped] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [btnActive, setbtnActive] = useState(true);
+  const [user, setuser] = useState('')
+  useEffect(() => {
+    const tkn = localStorage.getItem('token');
+    setuser(tkn)
+    
+  }, [])
+  
   const handleChange = (e) => {
     const value = e.target.value;
     setAnswer(value);
@@ -39,6 +48,8 @@ const page = () => {
       
     }
     setAnswer("");
+
+    
   };
 
   const handleHint = () => {
@@ -61,6 +72,8 @@ const page = () => {
   };
 
   return (
+    <>
+    {user?(
     <div className="w-full bg-black text-white h-screen flex flex-col">
       <Toaster />
       <div className="h-[90%] flex flex-col items-center ">
@@ -136,7 +149,9 @@ const page = () => {
           />
         </Link>
       </nav>
-    </div>
+    </div>):<div>hi</div>
+}
+    </>
   );
 };
 

@@ -19,10 +19,11 @@ export const POST = async (request)=>{
                         password:Users.password},'Secret',{expiresIn:"1h"}
                 )
                         const response = NextResponse.json({
+                            token:token,
                             message:"Login Successful",
                             success:true,
                         })
-                        response.cookies.set("token",token,{
+                        response.cookies.set('token',token,{
                             httpOnly:true,
                         })
                         return response;

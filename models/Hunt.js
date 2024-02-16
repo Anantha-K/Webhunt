@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const HuntSchema = new mongoose.Schema(
   {
+    email:{
+      type:String,
+      ref:'User'
+
+    },
     name: { 
             type: String,
             ref: 'User',

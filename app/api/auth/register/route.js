@@ -1,4 +1,5 @@
 import connect from "@/db";
+import Hunt from "@/models/Hunt";
 import User from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -20,6 +21,8 @@ export const POST = async (request, response) => {
 
         const newUser = new User({ name, email, password });
         await newUser.save();
+        const hunt = new Hunt({email,name,score,level,hint})
+        await hunt.save();
 
         return NextResponse.json({ message: "User created" }, { status: 201 });
     } catch (error) {

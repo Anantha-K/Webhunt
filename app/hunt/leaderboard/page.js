@@ -1,12 +1,14 @@
-// pages/index.js
 import Head from 'next/head';
 import '/Users/ananthakrishnan/Documents/Anandu/IEEEEEEEEEEEEE/Webhunt/app/leader.css';
+import { cookies } from 'next/headers'
+ 
 
 export default function Home() {
+ 
   return (
-    <div className="container">
+    <div className="containerr">
       <div>
-        {/* <a href="https://ieee-fisat-spectrospect.vercel.app/"><img src="/ezgif.gif" alt="" id="img" /></a> */}
+        <a href="https://ieee-fisat-spectrospect.vercel.app/"><img src="/ezgif.gif" alt="" id="img" /></a>
         <div className="upper">
           <div className="card1">
             <div className="pro_pic">
@@ -60,7 +62,7 @@ export default function Home() {
         </div>
       </div>
       <footer id="footer">
-        <div className="container">
+        <div className="containerr">
           <div className="copyright">
             &copy; Copyright <strong><span>IEEE FISAT SB</span></strong>.
           </div>
