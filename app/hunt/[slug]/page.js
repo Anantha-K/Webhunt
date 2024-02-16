@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
  
 
 const page = () => {
+  
   const [active, setactive] = useState("home");
   const [answer, setAnswer] = useState("");
   const [hints, setHints] = useState(3);
@@ -21,8 +22,26 @@ const page = () => {
   useEffect(() => {
     const tkn = localStorage.getItem('token');
     setuser(tkn)
+
+    fetchData();
     
   }, [])
+  
+  const fetchData=async()=>{
+    const email='ieee@iee.com'
+    const data ={email}
+    let res= await fetch ('http://localhost:3000/api/auth/updateHunt',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+      },
+      body:JSON.stringify(data),
+          })
+      
+          console.log(res);
+    let response =await res.json();
+    console.log(response);
+  }
   
   const handleChange = (e) => {
     const value = e.target.value;
