@@ -6,6 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 //import { faGithub, faInstagram, faYoutube, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import './Login.css'
 
+
 function page() {
   const [activePanel, setActivePanel] = useState('login');
 
@@ -69,12 +70,9 @@ function page() {
         toast.loading('Redirecting...', {
           position: "top-left"
         })
-        
-      },500);
+        redirect('/hunt/game');
 
-      setTimeout(()=>{
-          window.location.href='/hunt/game';
-        },1000);
+      },500);
 
       }
       setEmail('')
