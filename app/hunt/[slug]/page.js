@@ -17,12 +17,16 @@ const page = () => {
   const [user, setuser] = useState();
   const [level, setlevel] = useState(0);
   const [score, setscore] = useState(0);
+
   useEffect(() => {
     const tkn = localStorage.getItem("token");
     setuser(tkn);
     fetchData();
+
   }, []);
 
+
+  
   const fetchData = async () => {
     const email = "anandu@fisat.com";
     let url = `http://localhost:3000/api/auth/fetchDetails?email=${email}`;
@@ -84,8 +88,8 @@ const page = () => {
         });
         setTimeout(() => {
           setShowHint(false);
+          updateData();
         }, 10000);
-        updateData();
       } else {
         setbtnActive(false);
         toast.error("Sorry, you have no more hints left.");
@@ -110,12 +114,12 @@ const page = () => {
         setlevel(level + 1);
       }
       setscore(score + 250);
-
       setTimeout(() => {
         updateData();
-      }, 10000);
+      }, 2000);
     }
   };
+
 
   return (
     <>
