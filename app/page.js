@@ -147,7 +147,7 @@ function page() {
         toast.error("Error creating user!");
       }
       else if(response.message === "Email already exists"){
-        toast('Good Job!', {
+        toast('User already Exists !', {
           icon: '🤨',
         });
 

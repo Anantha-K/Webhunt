@@ -5,13 +5,14 @@ import { NextRequest, NextResponse } from "next/server";
 connect();
 
 export const POST = async (request)=>{
-    const { email, score, level } = await request.json();
+    const { email, score, level ,hints} = await request.json();
 try{
        
         
     const userLvl =await Hunt.findOne({email});
-    userLvl.level=level;
     userLvl.score=score;
+    userLvl.level=level;
+    userLvl.currentLevelClues=hints;
 
     await userLvl.save();
 

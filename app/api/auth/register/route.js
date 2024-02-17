@@ -8,6 +8,9 @@ connect();
 
 export const POST = async (request, response) => {
     const {name,email,password}=await request.json();
+    const score=0;
+    const level=0;
+    const hint=3;
 
     try {
         const existingUser = await User.findOne({ email });
