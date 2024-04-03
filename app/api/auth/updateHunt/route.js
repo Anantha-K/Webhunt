@@ -25,7 +25,7 @@ export const POST = async (request) => {
     console.log("Update completed. Result:", updatedUser); 
     return NextResponse.json({ message: "User data updated" }, { status: 200 });
 
-// ... (rest of your code) 
+
 
   } catch (error) {
     console.error("Error updating user data:", error);
