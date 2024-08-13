@@ -70,7 +70,6 @@ const page = () => {
   };
 
   const updateData = async () => {
-    const email = "anandu@fisat.com";
     const data = { email, score, level, hints };
     let res = await fetch("http://localhost:3000/api/auth/updateHunt", {
       method: "POST",
