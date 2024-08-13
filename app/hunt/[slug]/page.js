@@ -11,6 +11,8 @@ const page = () => {
   const [active, setactive] = useState("home");
   const [answer, setAnswer] = useState("");
   const [hints, setHints] = useState("");
+  const[correctAnswer,setCorrectAnswer]=useState('');
+  const [questionText, setQuestionText] = useState("");
   const [flipped, setisFlipped] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [btnActive, setbtnActive] = useState(true);
@@ -21,27 +23,50 @@ const page = () => {
   useEffect(() => {
     const tkn = localStorage.getItem("token");
     setuser(tkn);
-    fetchData();
-
+    if (tkn) {
+      try {
+        const payload = JSON.parse(atob(tkn.split('.')[1]));
+        const email = payload.email;
+        console.log("Parsed email from token:", email);
+        if (email) {
+          fetchData(email);
+        } else {
+          throw new Error("Email not found in token");
+        }
+      } catch (error) {
+        console.error("Error parsing token:", error);
+        toast.error("Invalid token. Please log in again.");
+      }
+    } else {
+      console.log("No token found");
+      toast.error("Please log in to continue");
+    }
   }, []);
 
 
   
-  const fetchData = async () => {
-    const email = "anandu@fisat.com";
-    let url = `http://localhost:3000/api/auth/fetchDetails?email=${email}`;
-
-    let resp = await fetch(url);
-
-    let response = await resp.json();
-    console.log(response);
-    // localStorage.setItem('score',response.score);
-    // localStorage.setItem('level',response.level);
-    // localStorage.setItem('hints',response.currentLevelClues);
-    // setHints(response.currentLevelClues);
-    setHints(response.currentLevelClues || 3);
-    // console.log(score);
-    // console.log(level);
+  const fetchData = async (email) => {
+    let url = `http://localhost:3000/api/auth/fetchQue?email=${email}`;
+  
+    try {
+      let resp = await fetch(url);
+      let response = await resp.json();
+      console.log(response);
+      console.log(response.question.questionText)
+      
+      if (response.message === "Successful" && response.question) {
+        setHints(response.question.currentLevelClues || 3);
+        setlevel(response.question.levelNumber);
+        setscore(response.user.score);
+        setCorrectAnswer(response.question.answer);
+        setQuestionText(response.question.questionText);
+      } else {
+        toast.error("Failed to fetch question");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      toast.error("Error fetching data");
+    }
   };
 
   const updateData = async () => {
@@ -59,6 +84,8 @@ const page = () => {
     let response = await res.json();
     console.log(response);
   };
+
+
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -83,8 +110,9 @@ const page = () => {
         setHints(hints - 1);
         setscore(score - 50);
         setShowHint(!showHint);
-        toast("- 50 Points", {
+        toast("- 100 Points", {
           icon: "❗️",
+          position:"bottom-right"
         });
         setTimeout(() => {
           setShowHint(false);
@@ -104,13 +132,17 @@ const page = () => {
     setAnswer("");
     if (answer === "") {
       toast.error("Enter answer!");
-    } else if (answer != "Hello") {
+    } else if (answer.toLowerCase() != correctAnswer.toLowerCase()) {
       toast.error("Wrong Guess!");
-    } else if (answer === "Hello") {
-      toast.success("Correct Answer");
+    } else if (answer.toLowerCase() == correctAnswer.toLowerCase()) {
+      toast.success("🎉 Correct Answer");
+      setTimeout(() => {
+        toast.success("+1000 Points!" ,{position: "bottom-right",});
+        
+      }, 500);
       setShowHint(false);
       setHints(3);
-      if (level < 10) {
+      if (level < 16) {
         setlevel(level + 1);
       }
       setscore(score + 250);
@@ -143,10 +175,10 @@ const page = () => {
   }}
   transition={{ duration: 1 }}
 >
-  <h1 className={`${showHint ? "hidden" : ""}`}>
-    1. What is Clue one??
+<h1 className={`${showHint ? "hidden" : ""} text-base md:text-2xl mx-12`}>
+  {questionText || "Loading question..."}
   </h1>
-  <h1 className={`${showHint ? "flip-text" : "hidden"}`}>HINT 1</h1>
+  <h1 className={`${showHint ? "flip-text" : "hidden"}`}>{hints}</h1>
 </motion.div>
             <div className="form-control">
               <input
