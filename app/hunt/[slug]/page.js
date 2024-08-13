@@ -10,7 +10,8 @@ import { motion } from "framer-motion";
 const page = () => {
   const [active, setactive] = useState("home");
   const [answer, setAnswer] = useState("");
-  const [hints, setHints] = useState("");
+  const [hints, setHints] = useState([]);
+  const [currentHintIndex, setCurrentHintIndex] = useState(0);
   const[correctAnswer,setCorrectAnswer]=useState('');
   const [questionText, setQuestionText] = useState("");
   const [flipped, setisFlipped] = useState(false);
@@ -58,6 +59,7 @@ const page = () => {
         setHints(response.question.currentLevelClues || 3);
         setlevel(response.question.levelNumber);
         setscore(response.user.score);
+        setHints(response.question.hints);
         setCorrectAnswer(response.question.answer);
         setQuestionText(response.question.questionText);
       } else {
@@ -125,7 +127,7 @@ const page = () => {
       toast.error("Wait");
     }
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setAnswer("");
@@ -177,7 +179,7 @@ const page = () => {
 <h1 className={`${showHint ? "hidden" : ""} text-base md:text-2xl mx-12`}>
   {questionText || "Loading question..."}
   </h1>
-  <h1 className={`${showHint ? "flip-text" : "hidden"}`}>{hints}</h1>
+  <h1 className={`${showHint ? "flip-text" : "hidden"}`}>{hints[currentHintIndex]?.hintContent || "No hint available"}</h1>
 </motion.div>
             <div className="form-control">
               <input
