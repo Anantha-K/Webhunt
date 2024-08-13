@@ -26,5 +26,6 @@ const HuntSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
 mongoose.models = {};
 export default mongoose.models.Hunt || mongoose.model("Hunt", HuntSchema);

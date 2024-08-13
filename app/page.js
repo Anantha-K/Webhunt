@@ -56,8 +56,10 @@ function page() {
           console.log(res);
     let response =await res.json();
     console.log(response);
-
-    if(response.message === "No user"){
+    if(!email || !password){
+      toast.error("Enter Credentials");
+    }
+    else if(response.message === "No user"){
       toast.error("User Does not Exist!");
     }
     else if(response.message === "Incorrect password"){

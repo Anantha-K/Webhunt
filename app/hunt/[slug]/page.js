@@ -123,25 +123,31 @@ const page = () => {
 
   return (
     <>
+    <style jsx>{`
+  .flip-text {
+    transform: scaleX(-1);
+  }
+`}</style>
+
       {user ? (
         <div className="w-full bg-black text-white h-screen flex flex-col">
           <Toaster />
           <div className="h-[90%] flex flex-col items-center ">
-            <motion.div
-              className="h-[30%] rounded-3xl bg-gray-200 text-2xl md:text-4xl text-black mt-24 flex items-center justify-center w-[75%]"
-              animate={showHint ? "flip" : ""}
-              initial="unflip"
-              variants={{
-                unflip: { scaleX: 1 },
-                flip: { scaleX: -1 },
-              }}
-              transition={{ duration: 1 }}
-            >
-              <h1 className={`${showHint ? "hidden" : "t"}`}>
-                1. What is Clue one??
-              </h1>
-              <h1 className={`${showHint ? "" : "hidden"} `}>HINT 1</h1>
-            </motion.div>
+          <motion.div
+  className="h-[30%] rounded-3xl bg-gray-200 text-2xl md:text-4xl text-black mt-24 flex items-center justify-center w-[75%]"
+  animate={showHint ? "flip" : ""}
+  initial="unflip"
+  variants={{
+    unflip: { scaleX: 1 },
+    flip: { scaleX: -1 },
+  }}
+  transition={{ duration: 1 }}
+>
+  <h1 className={`${showHint ? "hidden" : ""}`}>
+    1. What is Clue one??
+  </h1>
+  <h1 className={`${showHint ? "flip-text" : "hidden"}`}>HINT 1</h1>
+</motion.div>
             <div className="form-control">
               <input
                 name="Answer"

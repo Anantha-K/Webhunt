@@ -26,7 +26,7 @@ const page = () => {
           await fetchData();
           setUser(token); 
         } catch (error) {
-          console.error('Error fetching data:', error); // Log to console
+          console.error('Error fetching data:', error); 
           toast.error('Could not load user data');
         }
       } 

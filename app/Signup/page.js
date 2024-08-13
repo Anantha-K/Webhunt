@@ -53,6 +53,9 @@ const page = () => {
 
       
     }
+    else{
+      toast.error("Server Error");
+    }
    
 
    }
