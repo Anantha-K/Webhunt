@@ -20,6 +20,7 @@ const page = () => {
   const [user, setuser] = useState();
   const [level, setlevel] = useState(0);
   const [score, setscore] = useState(0);
+  const [userEmail,setUserEmail]= useState('');
 
   useEffect(() => {
     const tkn = localStorage.getItem("token");
@@ -28,6 +29,7 @@ const page = () => {
       try {
         const payload = JSON.parse(atob(tkn.split('.')[1]));
         const email = payload.email;
+        setUserEmail(email);
         console.log("Parsed email from token:", email);
         if (email) {
           fetchData(email);
@@ -71,19 +73,29 @@ const page = () => {
     }
   };
 
-  const updateData = async () => {
-    const data = { email, score, level, hints };
-    let res = await fetch("http://localhost:3000/api/auth/updateHunt", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    console.log(res);
-    let response = await res.json();
-    console.log(response);
+  const updateData = async (newScore, newLevel) => {
+    const tkn = localStorage.getItem("token");
+    if (tkn) {
+      try {
+        const payload = JSON.parse(atob(tkn.split('.')[1]));
+        const email = payload.email;
+        const data = { email, score: newScore, level: newLevel, hints: hints.length - currentHintIndex };
+        let res = await fetch("http://localhost:3000/api/auth/updateHunt", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+  
+        console.log(res);
+        let response = await res.json();
+        console.log(response);
+      } catch (error) {
+        console.error("Error updating data:", error);
+        toast.error("Error updating data");
+      }
+    }
   };
 
 
@@ -109,9 +121,9 @@ const page = () => {
     if (!showHint) {
       if (hints.length > currentHintIndex) {
         setCurrentHintIndex(prevIndex => prevIndex + 1);
-        setscore(score - 50);
+        setscore(score - 100);
         setShowHint(true);
-        toast("- 50 Points", {
+        toast("- 100 Points", {
           icon: "❗️",
           position: "bottom-right"
         });
@@ -126,28 +138,75 @@ const page = () => {
       toast.error("Wait for the current hint to disappear.");
     }
   };
-  const handleSubmit = (e) => {
+
+
+
+  const fetchNextQuestion = async (email) => {
+    let url = `http://localhost:3000/api/auth/fetchQue?email=${email}`;
+  
+    try {
+      let resp = await fetch(url);
+      let response = await resp.json();
+      console.log(response);
+  
+      if (response.message === "Successful" && response.question) {
+        return response.question;
+      } else {
+        toast.error("Failed to fetch next question");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching next question:", error);
+      toast.error("Error fetching next question");
+      return null;
+    }
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setAnswer("");
     if (answer === "") {
       toast.error("Enter answer!");
-    } else if (answer.toLowerCase() != correctAnswer.toLowerCase()) {
+    } else if (answer.toLowerCase() !== correctAnswer.toLowerCase()) {
       toast.error("Wrong Guess!");
-    } else if (answer.toLowerCase() == correctAnswer.toLowerCase()) {
+      setAnswer("");
+    } else {
       toast.success("🎉 Correct Answer");
       setTimeout(() => {
-        toast.success("+1000 Points!" ,{position: "bottom-right",});
-        
+        toast.success("+1000 Points!", { position: "bottom-right" });
       }, 500);
-      setShowHint(false);
-      setHints(3);
-      if (level < 16) {
-        setlevel(level + 1);
+  
+      const newScore = score + 1000;
+      const newLevel = level < 16 ? level + 1 : level;
+  
+      await updateData(newScore, newLevel);
+  
+      const tkn = localStorage.getItem("token");
+      if (tkn) {
+        try {
+          const payload = JSON.parse(atob(tkn.split('.')[1]));
+          const email = payload.email;
+          if (email) {
+            const nextQuestion = await fetchNextQuestion(email);
+            if (nextQuestion) {
+              setHints(nextQuestion.hints || []);
+              setCurrentHintIndex(0);
+              setlevel(nextQuestion.levelNumber);
+              setscore(newScore);
+              setCorrectAnswer(nextQuestion.answer);
+              setQuestionText(nextQuestion.questionText);
+              setShowHint(false);
+              setAnswer("");
+            }
+          } else {
+            throw new Error("Email not found in token");
+          }
+        } catch (error) {
+          console.error("Error parsing token:", error);
+          toast.error("Invalid token. Please log in again.");
+        }
+      } else {
+        console.log("No token found");
+        toast.error("Please log in to continue");
       }
-      setscore(score + 250);
-      setTimeout(() => {
-        updateData();
-      }, 2000);
     }
   };
 
