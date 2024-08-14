@@ -56,7 +56,7 @@ const page = () => {
       console.log(response.question.questionText)
       
       if (response.message === "Successful" && response.question) {
-        setHints(response.question.currentLevelClues || 3);
+        setHints(response.question.hints || []);
         setlevel(response.question.levelNumber);
         setscore(response.user.score);
         setHints(response.question.hints);
@@ -107,27 +107,25 @@ const page = () => {
 
   const handleHint = () => {
     if (!showHint) {
-      if (hints > 0) {
-        setHints(hints - 1);
+      if (hints.length > currentHintIndex) {
+        setCurrentHintIndex(prevIndex => prevIndex + 1);
         setscore(score - 50);
-        setShowHint(!showHint);
-        toast("- 100 Points", {
+        setShowHint(true);
+        toast("- 50 Points", {
           icon: "❗️",
-          position:"bottom-right"
+          position: "bottom-right"
         });
         setTimeout(() => {
           setShowHint(false);
-          updateData();
         }, 10000);
       } else {
         setbtnActive(false);
         toast.error("Sorry, you have no more hints left.");
       }
     } else {
-      toast.error("Wait");
+      toast.error("Wait for the current hint to disappear.");
     }
   };
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     setAnswer("");
@@ -179,8 +177,9 @@ const page = () => {
 <h1 className={`${showHint ? "hidden" : ""} text-base md:text-2xl mx-12`}>
   {questionText || "Loading question..."}
   </h1>
-  <h1 className={`${showHint ? "flip-text" : "hidden"}`}>{hints[currentHintIndex]?.hintContent || "No hint available"}</h1>
-</motion.div>
+  <h1 className={`${showHint ? "flip-text" : "hidden"}`}>
+  {hints[currentHintIndex - 1]?.hintContent || "No hint available"}
+</h1></motion.div>
             <div className="form-control">
               <input
                 name="Answer"
@@ -211,8 +210,9 @@ const page = () => {
             </div>
             <div className="text-black px-5 mt-5 translate-y-16 bg-white py-1 rounded-3xl">
               Hints remaining:{" "}
-              <span className="text-red-500 font-bold">{hints}</span>
-            </div>
+              <span className="text-red-500 font-bold">
+  {hints.length - currentHintIndex > 0 ? hints.length - currentHintIndex : 0}
+</span>            </div>
             <div className="h-24 flex items-center w-[70%] text-white"></div>
           </div>
 
