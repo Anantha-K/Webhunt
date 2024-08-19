@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import '/Users/ananthakrishnan/Documents/Anandu/IEEEEEEEEEEEEE/Webhunt/app/leader.css';
+import '/app/leader.css';
 import { cookies } from 'next/headers'
  
 
