@@ -287,27 +287,29 @@ padding-left: 520px;
 
 }
 
-.main_heading{
+/* .main_heading{
     background: linear-gradient(45deg,rgb(15, 235, 121),rgb(6, 69, 74));
     -webkit-background-clip: text;
     color: transparent;
      position: absolute;
     padding: 20px;
-    left: 35%;
+    left: 30%;
     bottom: 30%; 
     font-size: 5em;
-}
+} */
 #lead{
     background: linear-gradient(45deg,rgb(15, 235, 121),rgb(6, 69, 74));
     -webkit-background-clip: text;
     color: transparent;
-    display: block;
-    align-self: center;
     position: absolute;
+    width: 900px;
     padding: 20px;
-    left: 50%;
-    bottom: 30%; 
+    top: 600px;
     font-size: 5em;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+
 }
 .listno{
     width: 80%;
@@ -489,15 +491,36 @@ padding-left: 520px;
     font-family: 'fantasy',cursive;
     font-weight: 800;
 }
+@media(max-width:1020px)
+{
+    .upper
+    {
+        position: absolute;
+        top: 10%;
+    }
+    .card2
+    {
+        margin-bottom: 50px;
+    }
+    #lead
+    {
+        position: absolute;
+        top: 8%;
+    }
+}
 @media (max-width:800px){
+    .upper
+    {
+        top: 20%;
+    }
     #footer {
         background: rgba(19, 19, 19, 0.4);
         padding: 30px 0;
         color: #fff;
-        width: 400px;
         font-size: 14px;
         bottom: -1000px;
         position: relative;
+
       }
     .part1 .user{
         font-size: 1.0em;
@@ -528,7 +551,7 @@ padding-left: 520px;
         height: 245px;
         
         } 
-        .main_heading{
+        /* .main_heading{
             background: linear-gradient(45deg,rgb(15, 235, 121),rgb(6, 69, 74));
             -webkit-background-clip: text;
             color: transparent;
@@ -537,15 +560,17 @@ padding-left: 520px;
             left: 100px;
             bottom: 390px;
             font-size: 2em;
-        }
+        } */
         #lead{
             background: linear-gradient(45deg,rgb(15, 235, 121),rgb(6, 69, 74));
             -webkit-background-clip: text;
             color: transparent;
             position: absolute;
             padding: 20px;
-            left: 90px;
-            bottom: 350px;
+            width: fit-content;
+            transform: translateX(-50%);
+            left: 50%;
+            top: 10%;
             font-size: 2em;
         }
 
@@ -570,13 +595,26 @@ and (max-device-width:1024px)and
         border-radius: 15px;
         transition: ease-in 1.5s;
     }
+    .card2
+    {
+    margin-bottom: 80px;
+    }
     .upper{
-        height: max-content;
+        height: 150vh;
         padding-bottom: 4vh;
         padding-top: 10vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    #footer
+    {
+        position: relative;
+        bottom: -1500px;
     }
  
 }
+
 .part2:hover .listno:not(:hover) {
     filter: blur(5px);
     transition: 1s;
