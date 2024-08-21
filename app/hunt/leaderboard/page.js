@@ -6,8 +6,8 @@ import { cookies } from 'next/headers'
 export default function Home() {
  
   return (
-    <div className="containerr">
-      <div>
+    <div className="containerr" >
+      <div className="Contain">
         <a href="https://ieee-fisat-spectrospect.vercel.app/"><img src="/ezgif.gif" alt="" id="img" /></a>
         <div className="upper">
           <div className="card1">
@@ -44,8 +44,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="main_heading">Web Hunt</div>
-        <div className="main_heading" id="lead">Leaderboard</div>
+        <div className="main_heading" id="lead">Web Hunt Leaderboard</div>
         <div className="mid">
           <a className="main__scroll" href="#last">
             <div className="main__scroll-box">
