@@ -11,6 +11,7 @@ export const POST = async (request)=>{
        
         
         const Users=await User.findOne({email});
+        
         if(Users){
             if(Users.password === password){
                 var token=  jwt.sign(
