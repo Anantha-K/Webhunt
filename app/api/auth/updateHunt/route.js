@@ -4,6 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 connect(); 
 
+
+
 export const POST = async (request) => {
   try {
     const { email, score, level, hints } = await request.json();
