@@ -19,6 +19,29 @@ body {
     align-items: center;
     flex-wrap: wrap;
 }
+.List
+{
+    position: absolute;
+    top: 800px;
+    width: 80%;
+    left: 10%;
+    height: 50vh;
+    background-color: rgba(4, 43, 10, 0.383);
+    border-radius: 2em;
+    
+}
+.List li {
+    text-align: center;
+    margin: 20px;
+    font-size: 2em;
+    border-radius: 4em;
+    background: linear-gradient(60deg, rgb(36, 176, 103), rgb(6, 69, 74)) padding-box, /* White background to keep text visible */
+                linear-gradient(45deg, rgb(11, 59, 34), rgb(6, 69, 74)) border-box; /* Gradient border */
+    border: 2px solid transparent; /* Transparent border to avoid overlap */
+    -webkit-background-clip: text, border-box; /* Clip text and border separately */
+    -webkit-text-fill-color: transparent; /* Make the text color transparent to show the gradient */
+}
+
 .mid{
     width: 100%;
     height: 15%;
@@ -247,7 +270,7 @@ a{
     padding: 30px 0;
     color: #fff;
     font-size: 14px;
-    bottom: -1000px;
+    bottom: -1200px;
     position: relative;
   }
   
