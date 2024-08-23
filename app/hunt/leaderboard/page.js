@@ -48,6 +48,18 @@ export default function Home() {
           ))}
         </div>
         <div className="main_heading" id="lead">Web Hunt Leaderboard</div>
+        <div className="List">
+          <ul>
+            {/* {leaderboard.map((user, index) => (
+              <li key={index}>
+                {user.email} - {user.score} points
+              </li>
+            ))} */}
+            <li>Person 1</li>
+            <li>Person 2</li>
+          </ul>
+        </div>
+        
         <div className="mid">
           <a className="main__scroll" href="#last">
             <div className="main__scroll-box">
@@ -56,6 +68,7 @@ export default function Home() {
                 <path d="M11.9997 13.1716L7.04996 8.22186L5.63574 9.63607L11.9997 16L18.3637 9.63607L16.9495 8.22186L11.9997 13.1716Z" fill="rgb(0, 255, 0)">
                 </path>
               </svg>
+              
             </div>
           </a>
         </div>
