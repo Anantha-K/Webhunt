@@ -212,7 +212,7 @@ function Page() {
             <button>Clues</button>
           </div>
           <div className="toggle-panel toggle-right">
-            <a href="https://ieee-fisat-spectrospect.vercel.app/"><Image src="ezgif.gif" alt="img" width={100} height={100} className="imgg" /></a>
+            {/* <a href="https://ieee-fisat-spectrospect.vercel.app/"><Image src="ezgif.gif" alt="img" width={100} height={100} className="imgg" /></a> */}
             <p>Register with your personal details to use all of the site features</p>
             <button className="hiddenn" onClick={handleRegisterClick}>Sign Up</button>
             <button>Clues</button>
