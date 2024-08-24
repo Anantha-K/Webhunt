@@ -371,7 +371,7 @@ setbtnActive(remainingHints > 0);
               <h1
                 className={`${
                   showHint ? "hidden" : ""
-                } text-base md:text-2xl mx-12`}
+                }  text-sm md:text-2xl mx-12`}
               >
                 {questionText || "Loading question..."}
               </h1>
