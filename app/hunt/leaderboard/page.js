@@ -2,6 +2,7 @@
 import Head from 'next/head';
 import '/app/leader.css'
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 // export default function Home() {
 //   const [leaderboard, setLeaderboard] = useState([]);
@@ -127,7 +128,7 @@ export default function Home() {
     <div className="containerr">
       <div className="Contain">
         <a href="https://ieee-fisat-spectrospect.vercel.app/">
-          <img src="/ezgif.gif" alt="" id="img" />
+          <Image src="/ezgif.gif" alt="user image" width={100} height={100} id="img" />
         </a>
         <div className="upper">
           {leaderboard.slice(0, 3).map((user, index) => (
