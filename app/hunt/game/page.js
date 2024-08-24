@@ -397,7 +397,7 @@ setbtnActive(remainingHints > 0);
               />
               <span className="input-border input-border-alt"></span>
             </div>{" "}
-            <div id="clue" className="mt-20 flex space-x-5 items-center flex-col md:flex-row">
+            <div id="clue" className="mt-20 flex space-x-5 items-center flex-col justify-center md:space-y-0 space-y-4 md:flex-row">
               <button
                 id="hint"
                 className={`${
