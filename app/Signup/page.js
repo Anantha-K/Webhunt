@@ -1,11 +1,12 @@
 'use client'
+import Image from "next/image";
 import Link from "next/link";
 
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 
-const page = () => {
+const Page = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
   
@@ -79,7 +80,7 @@ const page = () => {
       <div className="flex bg-white min-h-full flex-1 flex-col justify-center px-6 py-24 md:py-12 lg:px-8">
         <Toaster/>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
+          <Image
             className="mx-auto h-10 w-auto"
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="Your Company"
@@ -181,4 +182,4 @@ id="name"
   );
 };
 
-export default page;
+export default Page;
