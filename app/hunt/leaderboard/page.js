@@ -146,6 +146,12 @@ export default function Home() {
           ))}
         </div>
         <div className="main_heading" id="lead">Web Hunt Leaderboard</div>
+        <div className="List">
+           <ul>    
+            <li>Person 1</li>
+             <li>Person 2</li>
+           </ul>
+         </div>
         <div className="mid">
           <a className="main__scroll" href="#last">
             <div className="main__scroll-box">
