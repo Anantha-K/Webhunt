@@ -6,7 +6,7 @@ connect();
 
 export const GET = async (request) => {
   try {
-    const users = await User.find().sort({score : -1}).limit(10);
+    const users = await User.find().sort({ score: -1, scoreTimestamp: 1 }); 
     if (!users || users.length === 0) {
         return NextResponse.json({ message: "No users found" }, { status: 404 });
       }
@@ -25,3 +25,4 @@ export const GET = async (request) => {
     return NextResponse.json({ message: "Internal server error" }, { status: 500 });
   }
 };
+

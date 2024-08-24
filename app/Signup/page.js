@@ -55,6 +55,13 @@ const page = () => {
       },2000)
 
       
+    }else if(response.message === "Invalid Email Format"){
+      toast.error("Invalid Email Format");
+
+    }
+    else if(response.message==="Email already exists"){
+      toast.error("Email already in use");
+
     }
     else{
       toast.error("Server Error");
