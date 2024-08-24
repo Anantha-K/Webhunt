@@ -6,6 +6,8 @@ import { RiHomeLine } from "react-icons/ri";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
+import Lottie from "react-lottie";
+import animationData from './animation.json'
 
 const page = () => {
   const [active, setactive] = useState("home");
@@ -21,6 +23,17 @@ const page = () => {
   const [level, setlevel] = useState(1);
   const [score, setscore] = useState(0);
   const [userEmail,setUserEmail]= useState('');
+  const[gameOver,setGameOver] = useState(false);
+
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
 
   useEffect(() => {
     const tkn = localStorage.getItem("token");
@@ -30,12 +43,18 @@ const page = () => {
         const payload = JSON.parse(atob(tkn.split('.')[1]));
         const email = payload.email;
         setUserEmail(email);
-        console.log("Parsed email from token:", email);
-        if (email) {
-          fetchData(email);
-        } else {
-          throw new Error("Email not found in token");
-        }
+        checkContestStatus().then((isActive) => {
+          if (isActive) {
+            checkGame(email).then(() => {
+              if (!gameOver) {
+                fetchData(email);
+              }
+            });
+          } else {
+            toast.error("The contest is not currently active.");
+            setGameOver(true);
+          }
+        });
       } catch (error) {
         console.error("Error parsing token:", error);
         toast.error("Invalid token. Please log in again.");
@@ -44,10 +63,36 @@ const page = () => {
       console.log("No token found");
       toast.error("Please log in to continue");
     }
-  }, []);
+  }, [gameOver]);
 
 
-  
+  const checkContestStatus = async () => {
+    let url = `http://localhost:3000/api/auth/checkContest`;
+    try {
+      let rsp = await fetch(url);
+      let rspn = await rsp.json();
+      console.log("Contest Status Response: ", rspn);
+      return rspn.isActive;
+    } catch (e) {
+      console.error("Error checking contest status: ", e);
+      return false;
+    }
+  };
+  const checkGame = async (email) =>{
+    let url = `http://localhost:3000/api/auth/checkGame?email=${email}`;
+    try {
+      let rsp = await fetch(url);
+      let rspn = await rsp.json();
+      console.log("CheckGame Response: ", rspn);
+      
+      if (rspn.message === "Over") {
+        setGameOver(true);
+      } 
+    } catch (e) {
+      console.error("Error checking game over status: ", e);
+    }
+  }
+
   const fetchData = async (email) => {
     let url = `http://localhost:3000/api/auth/fetchQue?email=${email}`;
   
@@ -63,7 +108,7 @@ const page = () => {
         setQuestionText(response.question.questionText);
         return response.question; 
       } else {
-        toast.error("Failed to fetch question");
+        // toast.error("Failed to fetch question");
         return null;
       }
     } catch (error) {
@@ -170,9 +215,26 @@ const page = () => {
   
       const newScore = score + 1000;
       const newLevel = level + 1;
+
+
+
   
       await updateData(newScore, newLevel);
-  
+      if(newLevel==16){
+        let res = await fetch(`http://localhost:3000/api/auth/gameOver?email=${userEmail}`,
+    {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+      },
+    })
+
+
+        setTimeout(() => {
+          window.location.href='/hunt/leaderboard';
+        }, 2000);
+      }
+      if(newLevel!=16){
       const nextQuestion = await fetchData(userEmail);
   
       if (nextQuestion) {
@@ -184,14 +246,21 @@ const page = () => {
         setQuestionText(nextQuestion.questionText);
         setShowHint(false);
         setAnswer("");
-        alert(questionText)
       } else {
-        toast.error("Failed to fetch next question");
+        // toast.error("Failed to fetch next question");
       }
   
       setTimeout(() => {
         toast.success("+1000 Points!", { position: "bottom-right" });
       }, 500);
+    }else{
+      setTimeout(() => {
+          setGameOver(true);  
+  
+      }, 1000);
+      toast.success('Hunt Complete!');
+
+    }
     }
   };
   return (
@@ -202,7 +271,53 @@ const page = () => {
   }
 `}</style>
 
-      {user ? (
+{gameOver ? (
+<>
+<div className="w-full h-screen flex flex-col items-center justify-center bg-black text-white">
+<div className='w-full flex flex-col items-center bg-black'>
+        <Lottie 
+          options={defaultOptions}
+          height={400}
+          width={400}
+        />
+        <h1 className="text-3xl">Hunt Complete</h1>
+        <p className="text-xl mt-2">Check out the leaderboard</p>
+
+      </div>
+
+       
+
+    <nav className="border-2 mt-56 border-gray-800 md:-translate-y-5 mb-5 text-3xl font-light w-[90%] md:w-[70%] self-center rounded-3xl items-center flex justify-evenly h-[10%]">
+            <Link href="/hunt/hi">
+              <RiHomeLine
+                className={`cursor-pointer ${
+                  active === "home" ? "text-green-400" : "text-white"
+                }`}
+                onClick={() => setactive("home")}
+              />
+            </Link>
+            <Link href="/hunt/leaderboard">
+              <MdOutlineLeaderboard
+                className={`cursor-pointer ${
+                  active === "leaderBoard" ? "text-green-400" : "text-white"
+                }`}
+                onClick={() => setactive("leaderBoard")}
+              />
+            </Link>
+
+            <Link href="/">
+              <IoIosLogOut
+                className={`cursor-pointer ${
+                  active === "Account" ? "text-green-400" : "text-white"
+                }`}
+                onClick={() => logOut()}
+              />
+            </Link>
+          </nav>
+  </div>
+  
+  </>
+) : user ? (
         <div className="w-full bg-black text-white h-screen flex flex-col">
           <Toaster />
           <div className="h-[90%] flex flex-col items-center ">
@@ -287,7 +402,11 @@ const page = () => {
           </nav>
         </div>
       ) : (
-        <div>hi</div>
+        <div className="w-full h-screen flex flex-col items-center justify-center bg-black text-white">
+          <h1 className="text-4xl">Please Sign In</h1>
+          <p className="mt-4"><a href="/" className="text-green-400">Log in</a> to continue playing the game.</p>
+        </div>
+      
       )}
     </>
   );

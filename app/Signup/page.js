@@ -27,7 +27,10 @@ const page = () => {
     setName('');
     setEmail('');
     setPassword('');
-    console.log(data)
+    let gameResponse = await fetch('http://localhost:3000/api/auth/checkContest');
+    let gameData = await gameResponse.json();
+
+    if (gameData.isActive) {
     let res = await fetch('http://localhost:3000/api/auth/register',
     {
       method:'POST',
@@ -55,6 +58,9 @@ const page = () => {
     }
     else{
       toast.error("Server Error");
+    }}else{
+      toast.error("Unable to Sign up! Contest Over");
+
     }
    
 

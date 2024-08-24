@@ -14,6 +14,7 @@ export const GET = async (request) => {
       return NextResponse.json({
         message: "Leaderboard fetched successfully",
         leaderboard: users.map((user) => ({
+            name:user.name,
           email: user.email,
           score: user.score,
           currentLevel: user.currentLevel,

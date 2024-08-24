@@ -29,6 +29,7 @@ const UserSchema = new mongoose.Schema(
     hintsRemaining: { type: Number, default: 3 },
     lastLoginDate: { type: Date, default: Date.now },
     registrationDate: { type: Date, default: Date.now },
+    gameOver:{type:Boolean}
   },
   { timestamps: true }
 );
