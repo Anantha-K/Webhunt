@@ -376,7 +376,7 @@ setbtnActive(remainingHints > 0);
                 {questionText || "Loading question..."}
               </h1>
               <h1 className={`${showHint ? "flip-text" : "hidden"}`}>
-              {hints[currentHintIndex - 1]?.hintType === "text" ? (
+                {hints[currentHintIndex - 1]?.hintType === "text" ? (
                   <p>{hints[currentHintIndex - 1]?.hintContent || "No hint available"}</p>
                 ) : hints[currentHintIndex - 1]?.hintType === "image" ? (
                   <Image src={hints[currentHintIndex - 1]?.hintContent} alt="Hint" width={200} height={200} className="max-w-full h-auto" />
@@ -396,15 +396,13 @@ setbtnActive(remainingHints > 0);
                 className="input input-alt mt-16"
               />
               <span className="input-border input-border-alt"></span>
-            </div>{" "}
+            </div>
             <div id="clue" className="flex flex-col md:flex-row mt-3 items-center justify-center md:space-x-5 md:space-y-0 space-y-4">
               <button
                 id="hint"
                 className={`${
-                  btnActive
-                    ? "hover:cursor-pointer"
-                    : "hover:cursor-not-allowed"
-                } `}
+                  btnActive ? "hover:cursor-pointer" : "hover:cursor-not-allowed"
+                }`}
                 onClick={handleHint}
               >
                 Hint
@@ -416,16 +414,15 @@ setbtnActive(remainingHints > 0);
                 Skip
               </button>
             </div>
-            <div className="text-black px-5 mt-5 translate-y-16 bg-white py-1 rounded-3xl">
+            <div className="text-black px-5 mt-5 bg-white py-1 rounded-3xl hints-remaining">
               Hints remaining:{" "}
               <span className="text-red-500 font-bold">
-              {hintsRemaining}
+                {hintsRemaining}
               </span>{" "}
             </div>
-            <div className="h-24 flex items-center w-[70%] text-white"></div>
           </div>
 
-          <nav className="border-2  mt-3 md:mt-0 border-gray-800 md:-translate-y-5 mb-5 text-3xl font-light w-[90%] md:w-[70%] self-center rounded-3xl items-center flex justify-evenly h-[10%]">
+          <nav className="border-2 mt-5 border-gray-800 text-3xl font-light w-[90%] md:w-[70%] self-center rounded-3xl items-center flex justify-evenly h-[10%] fixed bottom-0 left-0">
             <Link href="/hunt/hi">
               <RiHomeLine
                 className={`cursor-pointer ${
