@@ -8,7 +8,7 @@ import Image from 'next/image';
 //   const [leaderboard, setLeaderboard] = useState([]);
 
 //   const fetchLeaderboard = async () => {
-//     let url = "http://localhost:3000/api/auth/Fetchleader";
+//     let url = "https://webhunt-ieee.vercel.app/api/auth/Fetchleader";
     
 //     try {
 //       const res = await fetch(url);
@@ -105,7 +105,7 @@ export default function Home() {
   const [leaderboard, setLeaderboard] = useState([]);
 
   const fetchLeaderboard = async () => {
-    let url = "http://localhost:3000/api/auth/Fetchleader";
+    let url = "https://webhunt-ieee.vercel.app/api/auth/Fetchleader";
     
     try {
       const res = await fetch(url);

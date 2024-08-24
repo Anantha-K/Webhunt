@@ -28,11 +28,11 @@ const Page = () => {
     setName('');
     setEmail('');
     setPassword('');
-    let gameResponse = await fetch('http://localhost:3000/api/auth/checkContest');
+    let gameResponse = await fetch('https://webhunt-ieee.vercel.app/api/auth/checkContest');
     let gameData = await gameResponse.json();
 
     if (gameData.isActive) {
-    let res = await fetch('http://localhost:3000/api/auth/register',
+    let res = await fetch('https://webhunt-ieee.vercel.app/api/auth/register',
     {
       method:'POST',
       headers:{

@@ -67,7 +67,7 @@ const Page = () => {
   }, [gameOver]);
 
   const checkContestStatus = async () => {
-    let url = `https://webhunt-ieee.vercel.app/api/auth/checkContest`;
+    let url = `/api/auth/checkContest`;
     try {
       let rsp = await fetch(url);
       let rspn = await rsp.json();
@@ -79,7 +79,7 @@ const Page = () => {
     }
   };
   const checkGame = async (email) => {
-    let url = `https://webhunt-ieee.vercel.app/api/auth/checkGame?email=${email}`;
+    let url = `/api/auth/checkGame?email=${email}`;
     try {
       let rsp = await fetch(url);
       let rspn = await rsp.json();
@@ -94,7 +94,7 @@ const Page = () => {
   };
 
   const fetchData = async (email) => {
-    let url = `https://webhunt-ieee.vercel.app/api/auth/fetchQue?email=${email}`;
+    let url = `/api/auth/fetchQue?email=${email}`;
     
     try {
       let resp = await fetch(url);
@@ -192,7 +192,7 @@ setbtnActive(remainingHints > 0);
   };
 
   // const fetchNextQuestion = async (email) => {
-  //   let url = `https://webhunt-ieee.vercel.app/api/auth/fetchQue?email=${email}`;
+  //   let url = `/api/auth/fetchQue?email=${email}`;
 
   //   try {
   //     let resp = await fetch(url);
@@ -268,7 +268,7 @@ setbtnActive(remainingHints > 0);
       await updateData(newScore, newLevel);
       if (newLevel == 16) {
         let res = await fetch(
-          `https://webhunt-ieee.vercel.app/api/auth/gameOver?email=${userEmail}`,
+          `/api/auth/gameOver?email=${userEmail}`,
           {
             method: "POST",
             headers: {

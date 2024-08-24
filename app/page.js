@@ -46,7 +46,7 @@ function Page() {
     e.preventDefault();
     const data={email,password};
   
-    let res= await fetch ('http://localhost:3000/api/auth/login',{
+    let res= await fetch ('/api/auth/login',{
       method:'POST',
       headers:{
         'Content-Type':'application/json',
@@ -119,7 +119,7 @@ function Page() {
       setEmail('');
       setPassword('');
       console.log(data)
-      let res = await fetch('http://localhost:3000/api/auth/register',
+      let res = await fetch('/api/auth/register',
       {
         method:'POST',
         headers:{
