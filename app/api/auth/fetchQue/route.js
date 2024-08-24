@@ -1,41 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const { default: connect } = require("@/db");
-const { default: Level } = require("@/models/Level");
-const { default: User } = require("@/models/User");
+const connect = require("@/db").default;
+const Level = require("@/models/Level").default;
+const User = require("@/models/User").default;
 
 connect();
-export const GET = async (NextRequest) => {
-    try {
-  
-      const email = await NextRequest.nextUrl.searchParams.get("email");
-  
-      const user = await User.findOne({ email });
-      if (!user) {
-        return NextResponse.json({ message: "No user Found" }, { status: 404 });
-      }
-  
-      const userlvl = user.currentLevel;
-  
-      const question = await Level.findOne({ levelNumber: userlvl });
-      if (!question) {
-        return NextResponse.json({ message: "No question found" }, { status: 404 });
-      }
-      return NextResponse.json({
-        message: "Successful",
-        question: {
-            answer:question.answer,
-          levelNumber: question.levelNumber,
-          questionText: question.question,
-          hints: question.hints,
-          currentLevelClues: user.hintsremaining,
-        },
-        user: {
-          score: user.score,
-        }
-      }, { status: 200 });
-    } catch (e) {
-      console.error("Error in API route:", e);
-      return NextResponse.json({ message: "Server Error", error: e.message }, { status: 500 });
+
+export const GET = async (req) => {
+  try {
+    const email = req.nextUrl.searchParams.get("email");
+
+    if (!email) {
+      return NextResponse.json({ message: "Email is required" }, { status: 400 });
     }
-  };
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return NextResponse.json({ message: "No user found" }, { status: 404 });
+    }
+
+    const userLevel = user.currentLevel;
+    const question = await Level.findOne({ levelNumber: userLevel });
+    if (!question) {
+      return NextResponse.json({ message: "No question found" }, { status: 404 });
+    }
+
+    return NextResponse.json({
+      message: "Successful",
+      question: {
+        answer: question.answer,
+        levelNumber: question.levelNumber,
+        questionText: question.question,
+        hints: question.hints,
+      },
+      user: {
+        score: user.score,
+        hintsRemaining: user.hintsRemaining,
+      }
+    }, { status: 200 });
+  } catch (e) {
+    console.error("Error in API route:", e);
+    return NextResponse.json({ message: "Server Error", error: e.message }, { status: 500 });
+  }
+};

@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
 import Lottie from "react-lottie";
 import animationData from "./animation.json";
+import Image from "next/image";
 
 const page = () => {
   const [active, setactive] = useState("home");
@@ -24,6 +25,7 @@ const page = () => {
   const [score, setscore] = useState(0);
   const [userEmail, setUserEmail] = useState("");
   const [gameOver, setGameOver] = useState(false);
+  const [hintsRemaining, setHintsRemaining] = useState(3);
 
   const defaultOptions = {
     loop: true,
@@ -93,20 +95,24 @@ const page = () => {
 
   const fetchData = async (email) => {
     let url = `http://localhost:3000/api/auth/fetchQue?email=${email}`;
-
+    
     try {
       let resp = await fetch(url);
       let response = await resp.json();
-
+      
       if (response.message === "Successful" && response.question) {
         setHints(response.question.hints || []);
+        setCurrentHintIndex(0);
         setlevel(response.question.levelNumber);
         setscore(response.user.score);
         setCorrectAnswer(response.question.answer);
         setQuestionText(response.question.questionText);
+  
+        const remainingHints = response.user.hintsRemaining || 3;
+setHintsRemaining(remainingHints);
+setbtnActive(remainingHints > 0);
         return response.question;
       } else {
-        // toast.error("Failed to fetch question");
         return null;
       }
     } catch (error) {
@@ -165,6 +171,8 @@ const page = () => {
         setCurrentHintIndex((prevIndex) => prevIndex + 1);
         const newScore = score - 100;
         const remainingHints = hints.length - (currentHintIndex + 1);
+        setHintsRemaining(prevHints => prevHints - 1);
+
         updateData(newScore, level, remainingHints);
         setShowHint(true);
         toast("- 100 Points", {
@@ -368,8 +376,13 @@ const page = () => {
                 {questionText || "Loading question..."}
               </h1>
               <h1 className={`${showHint ? "flip-text" : "hidden"}`}>
-                {hints[currentHintIndex - 1]?.hintContent ||
-                  "No hint available"}
+              {hints[currentHintIndex - 1]?.hintType === "text" ? (
+                  <p>{hints[currentHintIndex - 1]?.hintContent || "No hint available"}</p>
+                ) : hints[currentHintIndex - 1]?.hintType === "image" ? (
+                  <Image src={hints[currentHintIndex - 1]?.hintContent} alt="Hint" width={200} height={200} className="max-w-full h-auto" />
+                ) : (
+                  "No hint available"
+                )}
               </h1>
             </motion.div>
             <div className="form-control">
@@ -406,9 +419,7 @@ const page = () => {
             <div className="text-black px-5 mt-5 translate-y-16 bg-white py-1 rounded-3xl">
               Hints remaining:{" "}
               <span className="text-red-500 font-bold">
-                {hints.length - currentHintIndex > 0
-                  ? hints.length - currentHintIndex
-                  : 0}
+              {hintsRemaining}
               </span>{" "}
             </div>
             <div className="h-24 flex items-center w-[70%] text-white"></div>
