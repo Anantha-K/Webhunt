@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
@@ -7,7 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import './Login.css'
 
 
-function page() {
+function Page() {
   const [activePanel, setActivePanel] = useState('login');
 
   const handleRegisterClick = () => {
@@ -211,7 +212,7 @@ function page() {
             <button>Clues</button>
           </div>
           <div className="toggle-panel toggle-right">
-            <a href="https://ieee-fisat-spectrospect.vercel.app/"><img src="ezgif.gif" alt="" className="imgg" /></a>
+            <a href="https://ieee-fisat-spectrospect.vercel.app/"><Image src="ezgif.gif" alt="img" width={100} height={100} className="imgg" /></a>
             <p>Register with your personal details to use all of the site features</p>
             <button className="hiddenn" onClick={handleRegisterClick}>Sign Up</button>
             <button>Clues</button>
@@ -222,4 +223,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

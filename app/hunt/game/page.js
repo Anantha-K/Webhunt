@@ -10,7 +10,7 @@ import Lottie from "react-lottie";
 import animationData from "./animation.json";
 import Image from "next/image";
 
-const page = () => {
+const Page = () => {
   const [active, setactive] = useState("home");
   const [answer, setAnswer] = useState("");
   const [hints, setHints] = useState([]);
@@ -468,4 +468,4 @@ setbtnActive(remainingHints > 0);
   );
 };
 
-export default page;
+export default Page;
