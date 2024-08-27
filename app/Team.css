@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: rgb(0, 0, 0);
+    user-select: none;
+}
+.container
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.head
+{
+    background: linear-gradient(45deg,rgb(15, 235, 121),rgb(6, 69, 74));
+    -webkit-background-clip: text;
+    color: transparent;
+    position: absolute;
+    width: 900px;
+    padding: 20px;
+    top: 0;
+    font-size: 5em;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.List
+{
+    position: absolute;
+    top: 200px;
+    width: 80%;
+    left: 10%;
+    height: 100vh;
+    background-color: rgba(4, 43, 10, 0.383);
+    border-radius: 2em;
+    
+}
+
+.List .team {
+    text-align: center;
+    margin: 20px;
+    font-size: 2em;
+    border-radius: 2em;
+    border: solid black 1px;
+    background-color: black;
+
+}
+.List .No
+{
+    text-align: center;
+    margin: 30px;
+    font-size: 1.5em;
+    border-radius: 4em;
+    background: linear-gradient(60deg, rgb(36, 176, 103), rgb(6, 69, 74)) padding-box, 
+                linear-gradient(45deg, rgb(11, 59, 34), rgb(6, 69, 74)) border-box; 
+    border: 2px solid transparent; 
+    -webkit-background-clip: text, border-box; 
+    -webkit-text-fill-color: transparent; 
+}
+#footer {
+    text-align: center;
+    background: rgba(19, 19, 19, 0.4);
+    padding: 30px 0;
+    color: #fff;
+    font-size: 14px;
+    bottom: -1200px;
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+@media (max-width:700px) {
+    .container
+    {
+        position: relative;
+        left: 20px;
+    }
+    
+}
