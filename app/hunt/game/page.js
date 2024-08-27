@@ -422,7 +422,7 @@ setbtnActive(remainingHints > 0);
             </div>
           </div>
 
-          <nav className="border-2 mt-5 border-gray-800 text-3xl font-light w-[90%] md:w-[70%] self-center rounded-3xl items-center flex justify-evenly h-[10%] fixed bottom-0 left-0">
+          <nav className="fixed bottom-0 left-0 w-full bg-black border-t-2 border-gray-800 text-3xl font-light flex justify-evenly items-center h-16 text-white">
             <Link href="/hunt/hi">
               <RiHomeLine
                 className={`cursor-pointer ${
