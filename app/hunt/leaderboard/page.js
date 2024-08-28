@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import '/app/leader.css'
 
-export default function Home() {
+export default function Page() {
   const [leaderboard, setLeaderboard] = useState([]);
 
   const fetchLeaderboard = async () => {
