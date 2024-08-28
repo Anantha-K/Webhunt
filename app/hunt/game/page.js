@@ -10,6 +10,7 @@ import Lottie from "react-lottie";
 import animationData from "./animation.json";
 import Image from "next/image";
 
+
 const Page = () => {
   const [active, setActive] = useState("home");
   const [answer, setAnswer] = useState("");
@@ -26,6 +27,9 @@ const Page = () => {
   const [userEmail, setUserEmail] = useState("");
   const [gameOver, setGameOver] = useState(false);
   const [hintsRemaining, setHintsRemaining] = useState(3);
+  const [timeLeft, setTimeLeft] = useState(0); 
+
+
 
   const defaultOptions = {
     loop: true,
@@ -36,6 +40,8 @@ const Page = () => {
     },
   };
 
+  
+ 
   useEffect(() => {
     const tkn = localStorage.getItem("token");
     setUser(tkn);
@@ -54,6 +60,49 @@ const Page = () => {
     }
   }, []);
 
+
+
+
+  useEffect(() => {
+    if (userEmail) {
+      const fetchRemainingTime = async () => {
+        try {
+          const response = await fetch(`/api/auth/getRemainingTime?email=${userEmail}`);
+          const data = await response.json();
+          if (data.remainingTime !== undefined) {
+            setTimeLeft(data.remainingTime);
+
+            const timer = setInterval(() => {
+              setTimeLeft((prevTime) => {
+                if (prevTime <= 0) {
+                  clearInterval(timer);
+                  setGameOver(true);
+                  return 0;
+                }
+                return prevTime - 1;
+              });
+            }, 1000);
+          } else {
+            setGameOver(true);
+          }
+        } catch (error) {
+          console.error("Error fetching remaining time:", error);
+        }
+      };
+
+      fetchRemainingTime();
+    }
+  }, [userEmail]);
+
+  const formatTime = (time) => {
+    time = Math.floor(time);
+  
+    const hours = String(Math.floor(time / 3600)).padStart(2, '0');
+    const minutes = String(Math.floor((time % 3600) / 60)).padStart(2, '0');
+    const seconds = String(time % 60).padStart(2, '0');
+  
+    return `${hours}:${minutes}:${seconds}`;
+  };
   const initializeGame = async (email) => {
     try {
       const isActive = await checkContestStatus();
@@ -393,7 +442,15 @@ const Page = () => {
                 {hintsRemaining}
               </span>{" "}
             </div>
+            <div className="text-black px-5 mt-5 bg-white py-1 rounded-3xl hints-remaining">
+              Time remaining:{" "}
+              <span className="text-red-500 font-bold">
+                {formatTime(timeLeft)}
+              </span>{" "}
+            </div>
           </div>
+
+          
 
           <nav className="fixed bottom-0 left-0 w-full bg-black border-t-2 border-gray-800 text-3xl font-light flex justify-evenly items-center h-16 text-white">
             <Link href="/hunt/hi">

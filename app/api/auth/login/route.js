@@ -16,16 +16,30 @@ export const POST = async (request) => {
             const isMatch = await bcrypt.compare(password, user.password);
 
             if (isMatch) {
+                if(user.firstLogin){
+                    user.firstLogin=false;
+                    user.startTime=Date.now();
+                    await user.save()
+;                    
+                }
+
+                const currentTime = Date.now();
+                const timeSinceFirstLogin = currentTime - user.firstLoginTime;
+                const timeLimit = 2 * 3600 * 1000; 
+                const remainingTime = Math.max(timeLimit - timeSinceFirstLogin, 0);
+
+               
                 const token = jwt.sign(
-                    { success: true, email: user.email },
+                    { success: true, email: user.email, remainingTime },
                     'Secret',
-                    { expiresIn: "1h" }
+                    { expiresIn: "2h" }
                 );
 
                 const response = NextResponse.json({
                     token: token,
                     message: "Login Successful",
                     success: true,
+                    remainingTime,  
                 });
                 response.cookies.set('token', token, {
                     httpOnly: true,

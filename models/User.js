@@ -30,7 +30,9 @@ const UserSchema = new mongoose.Schema(
     lastLoginDate: { type: Date, default: Date.now },
     registrationDate: { type: Date, default: Date.now },
     gameOver:{type:Boolean},
-    scoreTimestamp: { type: Date, default: Date.now }, 
+    scoreTimestamp: { type: Date, default: Date.now },
+    firstLogin:{type:Boolean,default:true}, 
+    startTime:{type:Date}
   },
   { timestamps: true }
 );
