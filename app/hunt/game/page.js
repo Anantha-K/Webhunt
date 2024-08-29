@@ -185,9 +185,9 @@ const Page = () => {
         setScore(response.user.score);
         setCorrectAnswer(response.question.answer);
         setQuestionText(response.question.questionText);
-        setHintsRemaining(response.user.hintsRemaining);
-        setCurrentHintIndex(response.user.currentHintIndex);
-        setBtnActive(response.user.hintsRemaining > 0);
+        setHintsRemaining(3); 
+        setCurrentHintIndex(0); 
+        setBtnActive(true);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -302,10 +302,9 @@ const Page = () => {
 
       const newScore = score + 1000;
       const newLevel = level + 1;
-      const resetHints = 3;
 
-      await updateData(newScore, newLevel, resetHints, 0);
-      setHintsRemaining(resetHints);
+      await updateData(newScore, newLevel, 3, 0);
+      setHintsRemaining(3);
       setCurrentHintIndex(0);
       setBtnActive(true);
 
