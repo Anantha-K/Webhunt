@@ -25,7 +25,6 @@ export const GET = async (request) => {
         const currentTime = Date.now();
         const startTime = user.startTime;
         const expirationTime = startTime.getTime() + 2 * 60 * 60 *1000 ; 
-
         const remainingTime = Math.max(0, expirationTime - currentTime);
 
         return NextResponse.json({ remainingTime: remainingTime/1000 }); 
