@@ -12,7 +12,7 @@ import Image from "next/image";
 
 
 const Page = () => {
-  const [active, setActive] = useState("home");
+  const [active, setactive] = useState("home");
   const [answer, setAnswer] = useState("");
   const [hints, setHints] = useState([]);
   const [currentHintIndex, setCurrentHintIndex] = useState(0);
