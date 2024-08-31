@@ -29,6 +29,6 @@ export const GET = async (NextRequest) => {
       leaderboard: leaderboard,
     }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return NextResponse.json({ message: "Internal server error" +error}, { status: 500 });
   }
 };
