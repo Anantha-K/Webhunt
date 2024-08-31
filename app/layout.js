@@ -3,7 +3,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Web-Hunt',
+  title: 'Web-Wars',
   description: 'IEEE FISAT SB WEBHUNT',
 }
 
