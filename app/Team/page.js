@@ -1,65 +1,92 @@
 import React from 'react';
 import Image from 'next/image';
 
-const TeamMember = ({ name, image, role }) => (
-  <div className="group relative overflow-hidden text-white rounded-lg shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl">
-    <div className="aspect-w-1 aspect-h-1">
-      <Image 
-        src={image} 
-        alt={name} 
-        layout="fill" 
+const TeamMemberCard = ({ name, image, role }) => (
+  <div className="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl transform hover:-translate-y-2">
+    <div className="relative h-64 w-full">
+      <Image
+        src={image}
+        alt={name}
+        layout="fill"
         objectFit="cover"
-        className="transition-transform duration-300 ease-in-out group-hover:scale-110"
+        className="transition-transform duration-300 ease-in-out hover:scale-105"
       />
     </div>
-    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-    <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
-      <h3 className="text-lg font-semibold">{name}</h3>
-      <p className="text-sm opacity-80">{role}</p>
+    <div className="p-6">
+      <h3 className="text-xl font-semibold text-gray-800 mb-2">{name}</h3>
+      <p className="text-sm text-gray-600">{role}</p>
     </div>
   </div>
 );
 
 const TeamSection = ({ title, members }) => (
   <div className="mb-16">
-    <h2 className="text-3xl font-bold text-white mb-8">{title}</h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <h2 className="text-3xl font-bold text-gray-800 mb-8">{title}</h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
       {members.map((member, index) => (
-        <TeamMember key={index} {...member} />
+        <TeamMemberCard key={index} {...member} />
       ))}
     </div>
   </div>
 );
 
-export default function Page() {
+const SDPTeamMember = ({ name, page }) => (
+  <li className="mb-4">
+    <span className="font-semibold">{name}</span> - {page}
+  </li>
+);
+
+const SDPTeamSection = ({ members }) => (
+  <div className="mb-16">
+    <h2 className="text-3xl font-bold text-gray-800 mb-8">SDP Team</h2>
+    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {members.map((member, index) => (
+        <SDPTeamMember key={index} {...member} />
+      ))}
+    </ul>
+  </div>
+);
+
+export default function TeamPage() {
   const leads = [
-    { name: "Lead 1", image: "/images/lead1.jpg", role: "Project Lead" },
-    { name: "Lead 2", image: "/images/lead2.jpg", role: "Technical Lead" },
-    // Add more leads as needed
+    { name: "John Doe", image: "/images/john-doe.jpg", role: "Project Lead" },
+    { name: "Jane Smith", image: "/images/jane-smith.jpg", role: "Technical Lead" },
   ];
 
   const webTeam = [
-    { name: "Web 1", image: "/images/web1.jpg", role: "Frontend Developer" },
-    { name: "Web 2", image: "/images/web2.jpg", role: "Backend Developer" },
-    { name: "Web 3", image: "/images/web3.jpg", role: "UI/UX Designer" },
-    { name: "Web 4", image: "/images/web4.jpg", role: "Full Stack Developer" },
-    // Add more web team members as needed
+    { name: "Alice Johnson", image: "/images/alice-johnson.jpg", role: "Frontend Developer" },
+    { name: "Bob Williams", image: "/images/bob-williams.jpg", role: "Backend Developer" },
+    { name: "Charlie Brown", image: "/images/charlie-brown.jpg", role: "UI/UX Designer" },
+    { name: "Diana Ross", image: "/images/diana-ross.jpg", role: "Full Stack Developer" },
   ];
 
   const contentTeam = [
-    { name: "Content 1", image: "/images/content1.jpg", role: "Content Writer" },
-    { name: "Content 2", image: "/images/content2.jpg", role: "Content Strategist" },
-    { name: "Content 3", image: "/images/content3.jpg", role: "Content Editor" },
-    { name: "Content 4", image: "/images/content4.jpg", role: "Content Researcher" },
-    // Add more content team members as needed
+    { name: "Eva Green", image: "/images/eva-green.jpg", role: "Content Writer" },
+    { name: "Frank Sinatra", image: "/images/frank-sinatra.jpg", role: "Content Strategist" },
+    { name: "Grace Kelly", image: "/images/grace-kelly.jpg", role: "Content Editor" },
+    { name: "Henry Ford", image: "/images/henry-ford.jpg", role: "Content Researcher" },
+  ];
+
+  const sdpTeam = [
+    { name: "Isaac Newton", page: "Home Page" },
+    { name: "Marie Curie", page: "About Us" },
+    { name: "Albert Einstein", page: "Services" },
+    { name: "Nikola Tesla", page: "Contact" },
+    { name: "Ada Lovelace", page: "Blog" },
+    { name: "Alan Turing", page: "FAQ" },
   ];
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      <h1 className="text-5xl font-bold text-center text-white mb-16">Meet the Web Hunt Team</h1>
-      <TeamSection title="Leads" members={leads} />
-      <TeamSection title="Web Team" members={webTeam} />
-      <TeamSection title="Content Team" members={contentTeam} />
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-5xl font-bold text-center text-gray-900 mb-16">Meet Our Team</h1>
+        
+        <TeamSection title="Leads" members={leads} />
+        <TeamSection title="Web Team" members={webTeam} />
+        <TeamSection title="Content Team" members={contentTeam} />
+        
+        <SDPTeamSection members={sdpTeam} />
+      </div>
     </div>
   );
 }

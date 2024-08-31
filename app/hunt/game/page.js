@@ -343,33 +343,33 @@ const Page = () => {
               <p className="text-xl mt-2">Check out the leaderboard</p>
             </div>
 
-            <nav className="border-2 mt-56 border-gray-800 md:-translate-y-5 mb-5 text-3xl font-light w-[90%] md:w-[70%] self-center rounded-3xl items-center flex justify-evenly h-[10%]">
-              <Link href="/hunt/hi">
-                <RiHomeLine
-                  className={`cursor-pointer ${
-                    active === "home" ? "text-green-400" : "text-white"
-                  }`}
-                  onClick={() => setactive("home")}
-                />
-              </Link>
-              <Link href="/hunt/leaderboard">
-                <MdOutlineLeaderboard
-                  className={`cursor-pointer ${
-                    active === "leaderBoard" ? "text-green-400" : "text-white"
-                  }`}
-                  onClick={() => setactive("leaderBoard")}
-                />
-              </Link>
+            <nav className="fixed bottom-0 left-0 w-full bg-black border-t-2 border-gray-800 text-3xl font-light flex justify-evenly items-center h-16 text-white">
+            <Link href="/hunt/hi">
+              <RiHomeLine
+                className={`cursor-pointer ${
+                  active === "home" ? "text-green-400" : "text-white"
+                }`}
+                onClick={() => setactive("home")}
+              />
+            </Link>
+            <Link href="/hunt/leaderboard">
+              <MdOutlineLeaderboard
+                className={`cursor-pointer ${
+                  active === "leaderBoard" ? "text-green-400" : "text-white"
+                }`}
+                onClick={() => setactive("leaderBoard")}
+              />
+            </Link>
 
-              <Link href="/">
-                <IoIosLogOut
-                  className={`cursor-pointer ${
-                    active === "Account" ? "text-green-400" : "text-white"
-                  }`}
-                  onClick={() => logOut()}
-                />
-              </Link>
-            </nav>
+            <Link href="/">
+              <IoIosLogOut
+                className={`cursor-pointer ${
+                  active === "Account" ? "text-green-400" : "text-white"
+                }`}
+                onClick={() => logOut()}
+              />
+            </Link>
+          </nav>
           </div>
         </>
       ) : user ? (

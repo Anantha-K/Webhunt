@@ -2,9 +2,15 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import '/app/leader.css';
+import Link from 'next/link';
+import { MdOutlineLeaderboard } from "react-icons/md";
+import { IoIosLogOut } from "react-icons/io";
+import { RiHomeLine } from "react-icons/ri";
 
 export default function Page() {
   const [leaderboard, setLeaderboard] = useState([]);
+  const [active, setactive] = useState("leaderBoard");
+
 
   const fetchLeaderboard = async () => {
     try {
@@ -49,6 +55,7 @@ export default function Page() {
   };
 
   return (
+    <>
     <div className="container">
       <h1 className="title">Web Hunt Leaderboard</h1>
       {renderTopThree()}
@@ -72,5 +79,33 @@ export default function Page() {
         </div>
       </footer>
     </div>
+    <nav className="fixed bottom-0 left-0 w-full bg-black border-t-2 border-gray-800 text-3xl font-light flex justify-evenly items-center h-16 text-white">
+            <Link href="/hunt/game">
+              <RiHomeLine
+                className={`cursor-pointer ${
+                  active === "home" ? "text-green-400" : "text-white"
+                }`}
+                onClick={() => setactive("home")}
+              />
+            </Link>
+            <Link href="/hunt/leaderboard">
+              <MdOutlineLeaderboard
+                className={`cursor-pointer ${
+                  active === "leaderBoard" ? "text-green-400" : "text-white"
+                }`}
+                onClick={() => setactive("leaderBoard")}
+              />
+            </Link>
+
+            <Link href="/">
+              <IoIosLogOut
+                className={`cursor-pointer ${
+                  active === "Account" ? "text-green-400" : "text-white"
+                }`}
+                onClick={() => logOut()}
+              />
+            </Link>
+          </nav>
+</>
   );
 }
