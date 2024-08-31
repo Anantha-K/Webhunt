@@ -2,9 +2,9 @@ import connect from "@/db";
 import User from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
 
-connect();
 
-export const GET = async (NextRequest) => {
+connect();
+export const GET = async (req) => {
   try {
     const users = await User.find().sort({ score: -1, scoreTimestamp: 1 });
     
