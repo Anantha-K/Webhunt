@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 connect();
 
-export const GET = async (request) => {
+export const GET = async (NextRequest) => {
   try {
     const users = await User.find().sort({ score: -1, scoreTimestamp: 1 });
     
