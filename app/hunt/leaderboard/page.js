@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import '/app/leader.css';
+import toast, { Toaster } from "react-hot-toast";
+
 import Link from 'next/link';
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
@@ -24,6 +26,20 @@ export default function Page() {
     } catch (error) {
       console.error("Error fetching leaderboard:"+ error);
     }
+  };
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("hints");
+    localStorage.removeItem("level");
+    localStorage.removeItem("score");
+
+    toast.loading("Logging Out");
+
+    setTimeout(() => {
+      toast.success("Logged out");
+      window.location.href = "/";
+    }, 500);
   };
 
   useEffect(() => {

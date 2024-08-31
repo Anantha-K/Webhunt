@@ -3,6 +3,10 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa6";
+import { CgWebsite } from "react-icons/cg";
+
+
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faGithub, faInstagram, faYoutube, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import './Login.css'
@@ -174,13 +178,12 @@ function Page() {
           <button onClick={handleSubmit}>Sign Up</button>
           <br />
           <h4>Follow SB Social-media handles</h4>
-          {/* <div className="social-icons">
-            <a href="#" className="icon"><FontAwesomeIcon icon={faGithub} /></a>
-            <a href="#" className="icon"><FontAwesomeIcon icon={faInstagram} /></a>
-            <a href="#" className="icon"><FontAwesomeIcon icon={faYoutube} /></a>
-            <a href="#" className="icon"><FontAwesomeIcon icon={faLinkedinIn} /></a>
+          <div className="social-icons">
+          <a href="https://www.instagram.com/ieeefisatsb/"target='_blank' className="icon"><FaInstagram /></a>
+            <a href="https://www.facebook.com/ieeefisat/" target='_blank'  className="icon"><FaFacebook/></a>
+            <a href="https://www.ieee.fisat.ac.in" target='_blank' className="icon"><CgWebsite /></a>          
 
-          </div> */}
+          </div>
         </form>
       </div>
       <div className="form-container sign-in text-black">
@@ -192,13 +195,12 @@ function Page() {
           <button onClick={handleSubmitLogin}>Log In</button>
           <br />
           <h4>Follow SB Social-media handles</h4>
-          {/* <div className="social-icons">
-            <a href="#" className="icon"><FontAwesomeIcon icon={faGithub} /></a>
-            <a href="#" className="icon"><FontAwesomeIcon icon={faInstagram} /></a>
-            <a href="#" className="icon"><FontAwesomeIcon icon={faYoutube} /></a>
-            <a href="#" className="icon"><FontAwesomeIcon icon={faLinkedinIn} /></a>
+          <div className="social-icons">
+            <a href="https://www.instagram.com/ieeefisatsb/"target='_blank' className="icon"><FaInstagram /></a>
+            <a href="https://www.facebook.com/ieeefisat/" target='_blank'  className="icon"><FaFacebook/></a>
+            <a href="https://www.ieee.fisat.ac.in" target='_blank' className="icon"><CgWebsite /></a>
 
-          </div> */}
+          </div>
         </form>
       </div>
       <div className="toggle-container">
@@ -209,13 +211,11 @@ function Page() {
 </a>
             <p>Enter your personal details to use all of the site features</p>
             <button className="hidden" onClick={handleLoginClick}>Log In</button>
-            <button>Clues</button>
           </div>
           <div className="toggle-panel toggle-right">
             {/* <a href="https://ieee-fisat-spectrospect.vercel.app/"><Image src="ezgif.gif" alt="img" width={100} height={100} className="imgg" /></a> */}
             <p>Register with your personal details to use all of the site features</p>
             <button className="hiddenn" onClick={handleRegisterClick}>Sign Up</button>
-            <button>Clues</button>
           </div>
         </div>
       </div>

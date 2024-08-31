@@ -1,84 +1,70 @@
-'use client'
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-
 const Page = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
-    if (name === 'name') {
+
+    if (name === "name") {
       setName(value);
-    } else if (name === 'email') {
+    } else if (name === "email") {
       setEmail(value);
-    } else if (name === 'password') {
+    } else if (name === "password") {
       setPassword(value);
     }
   };
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('')
-   const handleSubmit= async (e)=>{
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const data={name,email,password};
-    setName('');
-    setEmail('');
-    setPassword('');
-    let gameResponse = await fetch('/api/auth/checkContest');
+
+    const data = { name, email, password };
+    setName("");
+    setEmail("");
+    setPassword("");
+    let gameResponse = await fetch("/api/auth/checkContest");
     let gameData = await gameResponse.json();
 
     if (gameData.isActive) {
-    let res = await fetch('/api/auth/register',
-    {
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-      },
-      body:JSON.stringify(data)
-    }
-    
-    )
+      let res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    let response = await res.json();
-    console.log(response);
-    if(response.message==="User created"){
-      toast.success("User Created!");
-      setTimeout(()=>{
-        toast.loading("Redirecting...");
-
-      },1000);
-      setTimeout(()=>{
-        window.location.href='/';
-      },2000)
-
-      
-    }else if(response.message === "Invalid Email Format"){
-      toast.error("Invalid Email Format");
-
-    }
-    else if(response.message==="Email already exists"){
-      toast.error("Email already in use");
-
-    }
-    else{
-      toast.error("Server Error");
-    }}else{
+      let response = await res.json();
+      console.log(response);
+      if (response.message === "User created") {
+        toast.success("User Created!");
+        setTimeout(() => {
+          toast.loading("Redirecting...");
+        }, 1000);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
+      } else if (response.message === "Invalid Email Format") {
+        toast.error("Invalid Email Format");
+      } else if (response.message === "Email already exists") {
+        toast.error("Email already in use");
+      } else {
+        toast.error("Server Error");
+      }
+    } else {
       toast.error("Unable to Sign up! Contest Over");
-
     }
-   
-
-   }
- 
+  };
 
   return (
     <>
       <div className="flex bg-white min-h-full flex-1 flex-col justify-center px-6 py-24 md:py-12 lg:px-8">
-        <Toaster/>
+        <Toaster />
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             className="mx-auto h-10 w-auto"
@@ -92,7 +78,7 @@ const Page = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" method="POST" onSubmit={handleSubmit} >
+          <form className="space-y-6" method="POST" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium leading-6 text-gray-900">
                 Name
@@ -100,9 +86,9 @@ const Page = () => {
 
               <div className="mt-2">
                 <input
-value={name}
-onChange={handleChange}
-id="name"
+                  value={name}
+                  onChange={handleChange}
+                  id="name"
                   name="name"
                   type="name"
                   required
@@ -121,8 +107,8 @@ id="name"
 
               <div className="mt-2">
                 <input
-                value={email}
-                onChange={handleChange}
+                  value={email}
+                  onChange={handleChange}
                   id="email"
                   name="email"
                   type="email"
@@ -145,8 +131,8 @@ id="name"
 
               <div className="mt-2">
                 <input
-                value={password}
-                onChange={handleChange}
+                  value={password}
+                  onChange={handleChange}
                   id="password"
                   name="password"
                   type="password"
