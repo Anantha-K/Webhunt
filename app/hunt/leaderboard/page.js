@@ -22,7 +22,7 @@ export default function Page() {
         console.error("Failed to fetch leaderboard");
       }
     } catch (error) {
-      console.error("Error fetching leaderboard:", error);
+      console.error("Error fetching leaderboard:"+ error);
     }
   };
 
