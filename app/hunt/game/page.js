@@ -52,7 +52,7 @@ const Page = () => {
         setUserEmail(email);
         initializeGame(email);
       } catch (error) {
-        console.error("Error parsing token:", error);
+        // console.error("Error parsing token:", error);
         toast.error("Invalid token. Please log in again.");
       }
     } else {
@@ -86,7 +86,7 @@ const Page = () => {
             setGameOver(true);
           }
         } catch (error) {
-          console.error("Error fetching remaining time:", error);
+          // console.error("Error fetching remaining time:", error);
         }
       };
 

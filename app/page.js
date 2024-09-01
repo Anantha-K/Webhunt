@@ -58,9 +58,9 @@ function Page() {
       body:JSON.stringify(data),
           })
       
-          console.log(res);
+          // console.log(res);
     let response =await res.json();
-    console.log(response);
+    // console.log(response);
     if(!email || !password){
       toast.error("Enter Credentials");
     }
@@ -122,7 +122,7 @@ function Page() {
       setName('');
       setEmail('');
       setPassword('');
-      console.log(data)
+      // console.log(data)
       let res = await fetch('/api/auth/register',
       {
         method:'POST',
@@ -135,7 +135,7 @@ function Page() {
       )
       
       let response = await res.json();
-      console.log(response);
+      // console.log(response);
       if(response.message==="User created"){
         toast.success("User Created!");
         setTimeout(()=>{
