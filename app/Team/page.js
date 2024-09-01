@@ -68,12 +68,10 @@ export default function TeamPage() {
   ];
 
   const sdpTeam = [
-    { name: "Isaac Newton", page: "Home Page" },
-    { name: "Marie Curie", page: "About Us" },
-    { name: "Albert Einstein", page: "Services" },
-    { name: "Nikola Tesla", page: "Contact" },
-    { name: "Ada Lovelace", page: "Blog" },
-    { name: "Alan Turing", page: "FAQ" },
+    { name: "Adarsh R Shankar" },
+    { name: "Amal Karthik", page: "About Us" },
+    { name: "Advaith G Menon", page: "Services" },
+    
   ];
 
   return (
