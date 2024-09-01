@@ -294,7 +294,7 @@ const Page = () => {
 
     if (answer === "") {
       toast.error("Enter an answer!");
-    } else if (answer.toLowerCase() !== correctAnswer.toLowerCase()) {
+    } else if (answer.toLowerCase() !== correctAnswer.toLowerCase().trim()) {
       toast.error("Wrong Guess!");
       setAnswer("");
     } else {

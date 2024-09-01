@@ -16,7 +16,14 @@ export default function Page() {
 
   const fetchLeaderboard = async () => {
     try {
-      const res = await fetch("/api/auth/Fetchleader");
+      const res = await fetch("/api/auth/Fetchleader", {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        },
+      });
       const data = await res.json();
       if (data.message === "Leaderboard fetched successfully") {
         setLeaderboard(data.leaderboard);
@@ -24,10 +31,11 @@ export default function Page() {
         console.error("Failed to fetch leaderboard");
       }
     } catch (error) {
-      console.error("Error fetching leaderboard:"+ error);
+      console.error("Error fetching leaderboard:", error);
     }
   };
 
+  
   const logOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("hints");
@@ -44,6 +52,10 @@ export default function Page() {
 
   useEffect(() => {
     fetchLeaderboard();
+    
+    const intervalId = setInterval(fetchLeaderboard, 30000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const renderTopThree = () => {
