@@ -21,7 +21,7 @@ const TeamMemberCard = ({ name, image, role }) => (
 
 const TeamSection = ({ title, members }) => (
   <div className="mb-16">
-    <h2 className="text-3xl font-bold text-gray-800 mb-8">{title}</h2>
+    <h2 className="text-3xl font-bold text-white mb-8">{title}</h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
       {members.map((member, index) => (
         <TeamMemberCard key={index} {...member} />
@@ -32,7 +32,7 @@ const TeamSection = ({ title, members }) => (
 
 const SDPTeamMember = ({ name, page }) => (
   <li className="mb-4">
-    <span className="font-semibold">{name}</span> - {page}
+    <span className="font-semibold">{name}</span>  {page}
   </li>
 );
 
@@ -49,35 +49,51 @@ const SDPTeamSection = ({ members }) => (
 
 export default function TeamPage() {
   const leads = [
-    { name: "John Doe", image: "/images/john-doe.jpg", role: "Project Lead" },
-    { name: "Jane Smith", image: "/images/jane-smith.jpg", role: "Technical Lead" },
+    { name: "Akhil Gireesh", image: "/images/Akhil.jpg", role: "Webwars Lead | CS Secretary" },
+    // { name: "Jane Smith", image: "/images/jane-smith.jpg", role: "Technical Lead" },
   ];
 
   const webTeam = [
-    { name: "Alice Johnson", image: "/images/alice-johnson.jpg", role: "Frontend Developer" },
-    { name: "Bob Williams", image: "/images/bob-williams.jpg", role: "Backend Developer" },
-    { name: "Charlie Brown", image: "/images/charlie-brown.jpg", role: "UI/UX Designer" },
-    { name: "Diana Ross", image: "/images/diana-ross.jpg", role: "Full Stack Developer" },
+    { name: "Anantha Krishnan", image: "/images/alice-johnson.jpg", role: "WEB Lead | Webmaster" },
+    { name: "Abhinav Manoj", image: "/images/bob-williams.jpg", role: "WEB Team" },
+
   ];
 
   const contentTeam = [
-    { name: "Eva Green", image: "/images/eva-green.jpg", role: "Content Writer" },
-    { name: "Frank Sinatra", image: "/images/frank-sinatra.jpg", role: "Content Strategist" },
-    { name: "Grace Kelly", image: "/images/grace-kelly.jpg", role: "Content Editor" },
-    { name: "Henry Ford", image: "/images/henry-ford.jpg", role: "Content Researcher" },
+    { name: "Ann Paul", image: "/images/eva-green.jpg", role: "Content Team" },
+    { name: "Aaron Easho", image: "/images/frank-sinatra.jpg", role: "Content Team" },
+    { name: "Poorvaja M Sooraj", image: "/images/grace-kelly.jpg", role: "Content Team" },
+    { name: "Neha A R", image: "/images/henry-ford.jpg", role: "Content Team" },
   ];
 
   const sdpTeam = [
     { name: "Adarsh R Shankar" },
-    { name: "Amal Karthik", page: "About Us" },
-    { name: "Advaith G Menon", page: "Services" },
+    { name: "Amal Karthik"},
+    { name: "Advaith G Menon" },
+    { name: "Aadi Sankar" },
+    { name: "Abel Jomy" },
+    { name: "Afiya Mol" },
+    { name: "Amaldev V" },
+    { name: "Ann maria tomichan" },
+    { name: "Ansa Anto" },
+    { name: "Anugraha Biju" },
+    { name: "Athul Krishna V V" },
+    { name: "Bhavana R Nair" },
+    { name: "Christa Jose" },
+    { name: "Hima mp" },
+    { name: "Maria Rahael Martin" },
+    { name: "Poorvaja m Sooraj" },
+    { name: "Rachana Rajesh Nair" },
+
+
+    
     
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-black py-16 text-white px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-5xl font-bold text-center text-gray-900 mb-16">Meet Our Team</h1>
+        <h1 className="text-5xl font-bold text-center text-white mb-16">Meet Our Team</h1>
         
         <TeamSection title="Leads" members={leads} />
         <TeamSection title="Web Team" members={webTeam} />
