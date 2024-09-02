@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
+
+
+const defaultCompleteTime = new Date("2024-09-04T00:00:00Z");
+
+
 const UserSchema = new mongoose.Schema(
   {
     name: {
@@ -32,7 +37,12 @@ const UserSchema = new mongoose.Schema(
     gameOver:{type:Boolean},
     scoreTimestamp: { type: Date, default: Date.now },
     firstLogin:{type:Boolean,default:true}, 
-    startTime:{type:Date}
+    startTime:{type:Date},
+    completeTime:{type:Date,default:defaultCompleteTime},
+    timeTaken: {
+      type: Number,
+      default: 2 * 60 * 60 * 1000
+    },
   },
   { timestamps: true }
 );

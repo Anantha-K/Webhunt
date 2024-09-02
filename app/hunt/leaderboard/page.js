@@ -35,6 +35,7 @@ export default function Page() {
     }
   };
 
+
   
   const logOut = () => {
     localStorage.removeItem("token");
@@ -50,13 +51,15 @@ export default function Page() {
     }, 500);
   };
 
+
+  
+
   useEffect(() => {
     fetchLeaderboard();
-    
     const intervalId = setInterval(fetchLeaderboard, 30000);
-
     return () => clearInterval(intervalId);
   }, []);
+
 
   const renderTopThree = () => {
     if (leaderboard.length < 3) return null;

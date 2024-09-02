@@ -288,13 +288,29 @@ const Page = () => {
       toast.error("Error skipping question.");
     }
   };
+  const updateTime = async () =>{
+    try {
+      const email = userEmail;
+
+      await fetch("/api/auth/setComplete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(email),
+      });
+    } catch (error) {
+      console.error("Error updating time:", error);
+      // toast.error("Error updating data");
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (answer === "") {
       toast.error("Enter an answer!");
-    } else if (answer.toLowerCase() !== correctAnswer.toLowerCase().trim()) {
+    } else if (answer.toLowerCase().trim() !== correctAnswer.toLowerCase()) {
       toast.error("Wrong Guess!");
       setAnswer("");
     } else {
@@ -316,6 +332,7 @@ const Page = () => {
           },
         });
         toast.success("Hunt Complete!");
+        updateTime();
         setTimeout(() => {
           window.location.href = "/hunt/leaderboard";
         }, 2000);

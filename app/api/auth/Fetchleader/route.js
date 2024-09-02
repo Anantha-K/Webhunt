@@ -2,12 +2,10 @@ import connect from "@/db";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 
-connect();
-
 export const GET = async (req) => {
   try {
-    const users = await User.find().sort({ score: -1, scoreTimestamp: 1 });
-
+    await connect();
+    const users = await User.find().sort({ score: -1, timeTaken: 1 });
     if (!users || users.length === 0) {
       return NextResponse.json({ message: "No users found" }, { status: 404 });
     }
@@ -17,7 +15,7 @@ export const GET = async (req) => {
       email: user.email,
       score: user.score,
       currentLevel: user.currentLevel,
-      finishTime: user.scoreTimestamp,
+      finishTime: user.completeTime,
     }));
 
     return NextResponse.json(
