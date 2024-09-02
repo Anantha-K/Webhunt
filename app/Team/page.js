@@ -48,22 +48,23 @@ const SDPTeamSection = ({ members }) => (
 );
 
 export default function TeamPage() {
-  const leads = [
-    { name: "Akhil Gireesh", image: "/images/Akhil.jpg", role: "Webwars Lead | CS Secretary" },
-    // { name: "Jane Smith", image: "/images/jane-smith.jpg", role: "Technical Lead" },
-  ];
-
-  const webTeam = [
-    { name: "Anantha Krishnan", image: "/images/alice-johnson.jpg", role: "WEB Lead | Webmaster" },
-    { name: "Abhinav Manoj", image: "/images/bob-williams.jpg", role: "WEB Team" },
-
-  ];
+  
 
   const contentTeam = [
-    { name: "Ann Paul", image: "/images/eva-green.jpg", role: "Content Team" },
-    { name: "Aaron Easho", image: "/images/frank-sinatra.jpg", role: "Content Team" },
+    { name: "Anjal P Dijo", image: "/images/Akhil.jpg", role: "CS Chair" },
+    { name: "Akhil Gireesh", image: "/images/Akhil.jpg", role: "CS Secretary" },
+    { name: "Ann Paul", image: "/images/eva-green.jpg", role: ""},
+    { name: "Gregory Kurien", image: "/images/Akhil.jpg", role: "SPS Chair" },
+    { name: "V M Ghanashyam", image: "/images/Akhil.jpg", role: "SPS Secretary" },
+    { name: "Shivani Krishna", image: "/images/Akhil.jpg", role: "WISP" },
+    { name: "Anantha Krishnan", image: "/images/alice-johnson.jpg", role: "Webmaster" },
+    { name: "Cibin Joseph", image: "/images/Akhil.jpg", role: "Design" },
+    { name: "Abhinav Manoj", image: "/images/bob-williams.jpg", role: "Associate Webmaster" },
     { name: "Poorvaja M Sooraj", image: "/images/grace-kelly.jpg", role: "Content Team" },
+    { name: "Neha", image: "/images/henry-ford.jpg", role: "Tech Team" },
     { name: "Neha A R", image: "/images/henry-ford.jpg", role: "Content Team" },
+    { name: "Athul Krishna", image: "/images/henry-ford.jpg", role: "Content Team" },
+    { name: "Aashna K S", image: "/images/henry-ford.jpg", role: "Content Team" },
   ];
 
   const sdpTeam = [
@@ -84,10 +85,6 @@ export default function TeamPage() {
     { name: "Maria Rahael Martin" },
     { name: "Poorvaja m Sooraj" },
     { name: "Rachana Rajesh Nair" },
-
-
-    
-    
   ];
 
   return (
@@ -95,8 +92,7 @@ export default function TeamPage() {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-5xl font-bold text-center text-white mb-16">Meet Our Team</h1>
         
-        <TeamSection title="Leads" members={leads} />
-        <TeamSection title="Web Team" members={webTeam} />
+        
         <TeamSection title="Content Team" members={contentTeam} />
         
         <SDPTeamSection members={sdpTeam} />
