@@ -38,7 +38,8 @@ const UserSchema = new mongoose.Schema(
     scoreTimestamp: { type: Date, default: Date.now },
     firstLogin:{type:Boolean,default:true}, 
     startTime:{type:Date},
-    completeTime:{type:Date,default:defaultCompleteTime},
+    completeTime:{type:Date,default:defaultCompleteTime},    
+    violated:{type:Boolean,default:false},
     timeTaken: {
       type: Number,
       default: 2 * 60 * 60 * 1000

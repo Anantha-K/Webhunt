@@ -1,12 +1,14 @@
 import connect from "@/db";
-import Hunt from "@/models/Hunt";
+import Level from "@/models/Level";
+import User from "@/models/User";
+
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
 
 export const DELETE = async (NextRequest) => {
     try {
-      const result = await Hunt.deleteMany({});
+      const result = await Level.deleteMany({});
       return NextResponse.json({ 
         message: "All users deleted successfully", 
         deletedCount: result.deletedCount 
