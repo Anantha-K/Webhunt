@@ -31,7 +31,7 @@ export const POST = async (request) => {
                
                 const token = jwt.sign(
                     { success: true, email: user.email, remainingTime },
-                    'Secret',
+                    process.env.JWT_SECRET,
                     { expiresIn: "2h" }
                 );
 

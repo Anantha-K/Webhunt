@@ -191,7 +191,7 @@ function Page() {
           <h1>Log In</h1>
           <input type="email" placeholder="Email" value={email} name='email' onChange={handleChangeLogin} />
           <input type="password" placeholder="Password" value={password} name="password" onChange={handleChangeLogin} />
-          <a href="#">Forget your password?</a>
+          {/* <a href="#">Forget your password?</a> */}
           <button onClick={handleSubmitLogin}>Log In</button>
           <br />
           <h4>Follow SB Social-media handles</h4>

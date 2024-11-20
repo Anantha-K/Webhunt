@@ -1,10 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-
-
 const defaultCompleteTime = new Date("2024-09-04T00:00:00Z");
-
 
 const UserSchema = new mongoose.Schema(
   {
@@ -34,15 +31,16 @@ const UserSchema = new mongoose.Schema(
     hintsRemaining: { type: Number, default: 3 },
     lastLoginDate: { type: Date, default: Date.now },
     registrationDate: { type: Date, default: Date.now },
-    gameOver:{type:Boolean},
+    gameOver: { type: Boolean },
     scoreTimestamp: { type: Date, default: Date.now },
-    firstLogin:{type:Boolean,default:true}, 
-    startTime:{type:Date},
-    completeTime:{type:Date,default:defaultCompleteTime},    
-    violated:{type:Boolean,default:false},
+    firstLogin: { type: Boolean, default: true },
+    startTime: { type: Date },
+    completeTime: { type: Date, default: defaultCompleteTime },
+    violated: { type: Boolean, default: false },
+    logoutCount: { type: Number, default: 0 }, // Added field to track logouts
     timeTaken: {
       type: Number,
-      default: 2 * 60 * 60 * 1000
+      default: 2 * 60 * 60 * 1000,
     },
   },
   { timestamps: true }

@@ -225,19 +225,56 @@ const Page = () => {
     setAnswer(e.target.value);
   };
 
-  const logOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("level");
-    localStorage.removeItem("score");
-
-    toast.loading("Logging Out");
-
-    setTimeout(() => {
-      toast.success("Logged out");
-      window.location.href = "/";
-    }, 500);
+  const logOut = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("No active session found");
+        window.location.href = "/";
+        return;
+      }
+  
+      const response = await fetch("/api/auth/logoutVio", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        // Add body with userId if you have it in localStorage
+        body: JSON.stringify({
+          userId: localStorage.getItem("userId") // Add this if you store userId
+        })
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("Logout response:", data); // Debug log
+  
+      // Clear local storage
+      ["token", "hints", "level", "score", "userId"].forEach(item => 
+        localStorage.removeItem(item)
+      );
+  
+      // Show appropriate toast message with logout count
+      if (data.violated) {
+        toast.error(`Account violated due to excessive logouts (${data.logoutCount}/5)`);
+      } else {
+        toast.success(`Logged out successfully (Logout ${data.logoutCount}/5)`);
+      }
+  
+      // Redirect after a short delay
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1500); // Increased delay to show toast
+  
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast.error("Error during logout");
+    }
   };
-
   const updateTime = async () => {
     try {
       const email = userEmail;
@@ -270,7 +307,7 @@ const Page = () => {
 
       await updateData(newScore, newLevel);
 
-      if (newLevel === 16) {
+      if (newLevel === 21) {
         await fetch(`/api/auth/gameOver?email=${userEmail}`, {
           method: "POST",
           headers: {
@@ -343,7 +380,7 @@ const Page = () => {
           <Toaster />
           <div className="h-[90%] flex flex-col items-center ">
           <motion.div
-  className="h-[30%] rounded-3xl bg-gray-200 text-2xl md:text-4xl text-black mt-24 flex items-center justify-center w-[75%] overflow-hidden"
+  className="h-[30%] rounded-3xl bg-[rgba(38,38,38,255)] text-2xl md:text-4xl text-black mt-24 flex items-center justify-center w-[75%] overflow-hidden"
   initial="unflip"
   animate={{ scale: [0.9, 1], opacity: [0, 1] }}
   transition={{ duration: 0.5 }}

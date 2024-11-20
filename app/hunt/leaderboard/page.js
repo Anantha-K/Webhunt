@@ -13,7 +13,6 @@ export default function Page() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [active, setactive] = useState("leaderBoard");
 
-
   const fetchLeaderboard = async () => {
     try {
       const res = await fetch("/api/auth/Fetchleader", {
@@ -25,33 +24,81 @@ export default function Page() {
         },
       });
       const data = await res.json();
+      console.log('Leaderboard API Response:', data); // Debug log
+  
       if (data.message === "Leaderboard fetched successfully") {
         setLeaderboard(data.leaderboard);
+        console.log('Updated leaderboard state:', data.leaderboard); // Debug log
       } else {
-        console.error("Failed to fetch leaderboard");
+        console.error("Failed to fetch leaderboard:", data);
+        toast.error("Failed to load leaderboard");
       }
     } catch (error) {
       console.error("Error fetching leaderboard:", error);
+      toast.error("Error loading leaderboard");
     }
   };
-
-
   
-  const logOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("hints");
-    localStorage.removeItem("level");
-    localStorage.removeItem("score");
+  // Add this debug useEffect
+  useEffect(() => {
+    console.log('Current leaderboard state:', leaderboard);
+  }, [leaderboard]);
 
-    toast.loading("Logging Out");
-
-    setTimeout(() => {
-      toast.success("Logged out");
+// Add this debug useEffect
+useEffect(() => {
+  console.log('Current leaderboard state:', leaderboard);
+}, [leaderboard]);
+  
+const logOut = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("No active session found");
       window.location.href = "/";
-    }, 500);
-  };
+      return;
+    }
 
+    const response = await fetch("/api/auth/logoutVio", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      // Add body with userId if you have it in localStorage
+      body: JSON.stringify({
+        userId: localStorage.getItem("userId") // Add this if you store userId
+      })
+    });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Logout response:", data); // Debug log
+
+    // Clear local storage
+    ["token", "hints", "level", "score", "userId"].forEach(item => 
+      localStorage.removeItem(item)
+    );
+
+    // Show appropriate toast message with logout count
+    if (data.violated) {
+      toast.error(`Account violated due to excessive logouts (${data.logoutCount}/5)`);
+    } else {
+      toast.success(`Logged out successfully (Logout ${data.logoutCount}/5)`);
+    }
+
+    // Redirect after a short delay
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 1500); // Increased delay to show toast
+
+  } catch (error) {
+    console.error("Logout error:", error);
+    toast.error("Error during logout");
+  }
+};
   
 
   useEffect(() => {
