@@ -144,17 +144,23 @@ const Page = () => {
   const initializeGame = async (email) => {
     try {
       const isActive = await checkContestStatus();
-      if (isActive) {
-        const gameStatus = await checkGame(email);
-        if (!gameOver) {
-          await fetchData(email);
-        }
-      } else {
+      if (!isActive) {
         toast.error("The contest is not currently active.");
         setGameOver(true);
+        return; // Early return to prevent further execution
       }
+      
+      const gameStatus = await checkGame(email);
+      if (gameStatus?.isOver) {
+        setGameOver(true);
+        return;
+      }
+      
+      await fetchData(email);
     } catch (error) {
       console.error("Error initializing game:", error);
+      setGameOver(true);
+      toast.error("Unable to initialize game");
     }
   };
 

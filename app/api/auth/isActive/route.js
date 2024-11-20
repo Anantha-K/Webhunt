@@ -7,21 +7,21 @@ connect();
 
 export const GET = async (request) => {
   try {
-    const contestSettings = await ContestSettings.findOne(); 
+    await connect();
+    const contestSettings = await ContestSettings.findOne();
     
     if (!contestSettings) {
-      return NextResponse.json({ message: "Contest settings not found" }, { status: 404 });
+      return NextResponse.json({ isActive: false }, { status: 404 });
     }
 
     const currentTime = new Date();
-
     const isActive = contestSettings.isActive &&
-                     currentTime >= contestSettings.startTime &&
-                     currentTime <= contestSettings.endTime;
+                    currentTime >= contestSettings.startTime &&
+                    currentTime <= contestSettings.endTime;
 
     return NextResponse.json({ isActive }, { status: 200 });
   } catch (error) {
     console.error("Error checking contest status:", error);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return NextResponse.json({ isActive: false }, { status: 500 });
   }
 };
