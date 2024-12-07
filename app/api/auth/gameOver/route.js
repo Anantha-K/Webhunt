@@ -16,6 +16,7 @@ export const POST = async (NextRequest) => {
       }
   
       user.gameOver='true';
+      user.completeTime = new Date();
       await user.save();
   
       return NextResponse.json({ message: "Success"}, { status: 200 });
@@ -25,3 +26,6 @@ export const POST = async (NextRequest) => {
       return NextResponse.json({ message: "Server Error", error: e.message }, { status: 500 });
     }
   };
+
+
+

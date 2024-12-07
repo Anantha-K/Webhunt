@@ -1,4 +1,5 @@
 import connect from "@/db";
+import Hunt from "@/models/Hunt";
 import Level from "@/models/Level";
 import User from "@/models/User";
 
@@ -19,7 +20,7 @@ export const DELETE = async (NextRequest) => {
       });
     } catch (error) {
       return NextResponse.json({ 
-        error: "An error occurred while deleting users" 
+        error: "An error occurred while deleting users"+error 
       }, { status: 500 });
     }
   };
