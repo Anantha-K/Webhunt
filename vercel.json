@@ -7,13 +7,6 @@
           "cache-control": "s-maxage=0, no-cache, no-store, must-revalidate"
         }
       }
-    ],
-    
-      "builds": [
-        {
-          "src": "package.json",
-          "use": "@vercel/node"
-        }
-      ]
+    ]
     
   }
