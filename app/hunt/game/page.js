@@ -123,7 +123,7 @@ const Page = () => {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [userEmail]);
+  }, [userEmail, handleVisibilityChange, initializeGame]);
 
   const handleVisibilityChange = () => {
     if (document.hidden) {
@@ -458,7 +458,7 @@ const Page = () => {
           
           <div className="text-center max-w-xl px-4">
             <p className="text-xl mb-6">
-              Observe the cipher carefully. You'll need to solve it after completing the hunt questions.
+              Observe the cipher carefully. You will need to solve it after completing the hunt questions.
             </p>
             
             <button 
@@ -600,7 +600,7 @@ const Page = () => {
           </form>
           
           <div className="text-sm text-gray-400 text-center px-4">
-            You've completed the hunt questions. Now solve the final cipher!
+            You have completed the hunt questions. Now solve the final cipher!
           </div>
         </div>
       )
