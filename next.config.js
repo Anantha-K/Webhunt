@@ -8,4 +8,13 @@ module.exports = {
       'webhuntig.s3.us-east-1.amazonaws.com', // Add the correct hostname
     ],
   },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        aws4: require.resolve('aws4')
+      };
+    }
+    return config;
+  },
 };
