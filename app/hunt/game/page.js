@@ -123,7 +123,7 @@ const Page = () => {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [userEmail, handleVisibilityChange, initializeGame]);
+  }, [userEmail]);
 
   const handleVisibilityChange = () => {
     if (document.hidden) {
